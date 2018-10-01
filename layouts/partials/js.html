@@ -21,7 +21,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 <!-- custom -->
-<!-- TODO -->
 {{ range .Site.Params.js }}
   <script src="{{ . | absURL }}"></script>
 {{ end }}

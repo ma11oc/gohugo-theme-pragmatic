@@ -1,5 +1,5 @@
 {{ define "main" }}
-    <div class="d-flex flex-nowrap mx-auto">
+    <div class="d-flex flex-nowrap mx-auto mb-4">
         <div class="container flex-column">
             <h1>{{ .Title }}</h1>
             <span class="text-muted w-30">
@@ -9,9 +9,10 @@
             </span>
 
             <div class="mt-2">
-                {{ if and .Params.github .Params.forkme }}
-                <a class="fork-me-on-github badge badge-success" href="{{ .Params.github }}">
-                    <i class="fa fa-github"></i>
+                {{ if and .Params.github .Params.forkit }}
+                <a class="fork-me-on-github badge badge-success p-2" href="{{ .Params.github }}">
+                    <i class="fas fa-code-branch" data-toggle="tooltip" title="fork me on github"></i>
+                    &nbsp;fork it!
                 </a>
                     {{ if .Params.license }}
                     <span class="badge badge-success p-2">{{ .Params.license }}</span>
@@ -64,7 +65,7 @@
     {{ end }}
 
 
-    {{ if and .Site.DisqusShortname .Params.enableComments }}
+    {{ if and .Site.DisqusShortname .Params.commentable }}
 
         <div class="comments w-100 pb-4">
             <div class="container">

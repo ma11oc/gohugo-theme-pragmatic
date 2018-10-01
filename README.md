@@ -3,9 +3,25 @@
 
 ## Installation
 
+- Build and install hugo extended
+```
+go build -o /tmp/hugo -tags extended
+sudo mv /tmp/hugo /usr/local/bin/hugo
+```
+
+- Install `npm`
+- Install dependencies
 
 ## TODO
-- Customize horizontal scrollbar within code blocks
+- [ ] Fix navbar collapsed button
+- [ ] Justify content within navbar
+- [ ] Handle all js as assets
+- [ ] Customize horizontal scrollbar within code blocks
+- [ ] Get rid of vertical scrollbar at intro page
+- [ ] Add examples
+- [ ] Add RSS
+- [ ] Refactor intro
+- [ ] Make code blocks responsive
 
 ### Known issues
 

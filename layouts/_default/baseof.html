@@ -6,9 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
         <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
+
         {{ if .Site.Params.favicon }}
-        <link rel="icon" href="{{ .Site.Params.favicon | absURL }}">
+            <link rel="icon" href="{{ .Site.Params.favicon | absURL }}">
         {{ end }}
+
         {{ partial "css" . }} {{ partial "js" . }} {{ .Hugo.Generator }}
         {{ if .RSSLink }}
         <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
@@ -28,11 +30,9 @@
         {{ end }}
     </head>
 
-    {{ if .Site.Params.MathJax | default true }}
+    {{ if .Site.Params.MathJax | default false }}
     <!-- adds MathJax support -->
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     {{ end }}
 
     <body>
@@ -47,7 +47,7 @@
 
                     <div id="#nav-brand" class="navbar-brand flex-column w-25 d-none d-md-block">
                         <a class="navbar-brand" href="/">
-                            <i class="fa fa-brain m-3"></i>
+                            <i class="fas fa-lightbulb m-3"></i>
                             <span class="">hard.reset.sh</span>
                         </a>
                     </div>
@@ -71,7 +71,7 @@
                             {{ range sort .Site.Menus.icon }}
                             <li class="navbar-icon m-3">
                                 <a href="{{ .URL }}">
-                                    <i class="fa fa-{{ .Name }}"></i>
+                                    <i class="{{ .Name }}"></i>
                                 </a>
                             </li>
                             {{ end }}
