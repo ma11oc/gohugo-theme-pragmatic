@@ -1,0 +1,78 @@
+{{ define "main" }}
+    <div class="d-flex flex-nowrap mx-auto">
+        <div class="container flex-column">
+            <h1>{{ .Title }}</h1>
+            <span class="text-muted w-30">
+                <strong class="text-muted">Published:</strong> {{ dateFormat "January 2, 2006" .PublishDate }}
+                &nbsp; | &nbsp;
+                <strong class="text-muted">Modified:</strong> {{ dateFormat "January 2, 2006" .Lastmod }}
+            </span>
+
+            <div class="mt-2">
+                {{ if and .Params.github .Params.forkme }}
+                <a class="fork-me-on-github badge badge-success" href="{{ .Params.github }}">
+                    <i class="fa fa-github"></i>
+                </a>
+                    {{ if .Params.license }}
+                    <span class="badge badge-success p-2">{{ .Params.license }}</span>
+                    {{ end }}
+                {{ end }}
+                {{ range .Params.tags }}
+                    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}" class="badge badge-dark p-2">{{ . }}</a>
+                {{ end }}
+            </div>
+
+            <div class="content flex-column mt-4">
+                {{ .Content }}
+            </div>
+        </div>
+
+        {{ if isset .Params "toc" }}
+            <div class="toc flex-column d-none d-lg-block d-print-none">
+                {{ $.Page.TableOfContents }}
+            </div>
+        {{ end }}
+    </div>
+
+    <!-- related content -->
+    {{ $related := .Site.RegularPages.Related . | first 5 }}
+
+    {{ if $related }}
+
+        <div class="related d-flex flex-column w-100 bg-dark pb-4">
+            <div class="container">
+                <h1 class="page-header">See also</h4>
+
+                <ul>
+                {{ with $related }}
+                    {{ range . }}
+                    <li>
+                        <a class="mr-2" href="{{ .RelPermalink }}">{{ .Title }}</a>
+
+                        {{ range .Params.tags }}
+                            <a class="badge badge-dark" href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>
+                        {{ end }}
+
+                        <a class="badge badge-accent ml-2" href="{{ $.Site.BaseURL }}/{{ .Section | urlize }}">{{ .Section }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+                {{ end }}
+            </div>
+        </div>
+
+    {{ end }}
+
+
+    {{ if and .Site.DisqusShortname .Params.enableComments }}
+
+        <div class="comments w-100 pb-4">
+            <div class="container">
+                <h1 class="page-header">Comments</h4>
+
+                {{ template "_internal/disqus.html" . }}
+            </div>
+        </div>
+    {{ end }}
+
+{{ end }}

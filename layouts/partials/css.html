@@ -1,0 +1,34 @@
+<!-- google fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{ .Site.Params.font }}">
+
+<!-- highlight.js -->
+{{ if .Site.Params.highlight | default false }} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/{{ .Site.Params.highlightStyle | default "default" }}.min.css"> {{ end }}
+
+<!-- bootstrap -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-f60550e1d605c305928c80d99cb1169f10a3792585a61262c063d7af58dd74884e7a08aed45c0ee6a446bc55ce749678" crossorigin="anonymous"> -->
+
+<!-- font awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<!-- main -->
+{{ $scratch := newScratch }}
+
+{{ $vars :=  resources.Get "sass/variables.scss" | resources.ExecuteAsTemplate "vars.scss" . }}
+{{ $scratch.Add "bundle" (slice $vars) }}
+{{ $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) }}
+
+{{ range .Site.Params.sass }}
+    {{ $scratch.Add "bundle" (slice (resources.Get . )) }}
+{{ end }}
+
+{{ $bundle := $scratch.Get "bundle" | resources.Concat "css/bundle.scss" }}
+{{ $styles := $bundle | toCSS | postCSS | minify | fingerprint }}
+
+<link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+<!-- <link rel="stylesheet" href="{{ "css/main.css" | absURL }}"> -->
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> -->
+
+<!-- custom -->
+

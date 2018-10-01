@@ -1,0 +1,20 @@
+
+{{ $.Scratch.Set "link" .RelPermalink }}
+{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") | $.Scratch.Set "subtitle" }}
+{{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
+
+<div class="item d-flex flex-column w-100 mt-4">
+    <h2><a href="{{ .Scratch.Get "link" }}">{{ .Title }}</a></h5>
+    <span class="text-muted w-30">
+        <strong class="text-muted">Published:</strong> {{ dateFormat "January 2, 2006" .PublishDate }}
+        &nbsp; | &nbsp;
+        <strong class="text-muted">Modified:</strong> {{ dateFormat "January 2, 2006" .Lastmod }}
+    </span>
+
+
+    <div class="tags mt-2">
+        {{ range .Params.tags }}
+            <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}" class="badge badge-dark p-2">{{ . }}</a>
+        {{ end }}
+    </div>
+</div>

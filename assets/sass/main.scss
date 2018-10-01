@@ -1,0 +1,275 @@
+/*****************************************************************************
+ * MIXINS
+ *****************************************************************************
+ */
+
+@mixin headings {
+  h1, h2, h3, h4, h5, h6 {
+    @content;
+  }
+}
+
+/*****************************************************************************
+ * BOOTSTRAP OVERRIDES
+ *****************************************************************************
+ */
+
+// Generate `.bg-*` color utilities
+@each $color, $value in $theme-colors {
+  @include bg-variant('.bg-#{$color}', rgba($value, 0.10));
+}
+
+@include bg-variant('.bg-secondary', rgba(theme-color("light"), 0.05));
+@include bg-variant('.bg-dark', rgba($black, 0.10));
+
+
+// Generate `.badge-*` color utilities
+@each $color, $value in $theme-colors {
+  .badge-#{$color} {
+    @include badge-variant(rgba($value, 0.10));
+
+    color: theme-color-level($color, -5);
+    border: 1px solid rgba($value, 0.15);
+
+    &:hover, &:focus {
+      transition: color .5s, background-color .5s;
+      color: theme-color-level($color, -7) !important;
+      background-color: rgba($value, 0.25) !important;
+    }
+  }
+}
+
+.badge-dark {
+  @include badge-variant(rgba($black, 0.25));
+
+  color: theme-color-level("dark", -5);
+  border: 1px solid rgba($white, 0.15);
+
+  &:hover, &:focus {
+    transition: color .5s, background-color .5s;
+    color: theme-color-level("dark", -7) !important;
+    background-color: rgba($black, 0.15) !important;
+  }
+}
+
+
+// Generate `.alert-*` color utilities
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include alert-variant(rgba($value, 0.10), rgba($value, 0.15), theme-color-level($color, -5));
+
+    @include headings {
+      color: theme-color-level($color, -5);
+    }
+
+    .alert-link {
+      color: lighten($value, 25%);
+    }
+  }
+}
+
+.alert-secondary {
+  @include alert-variant(rgba(theme-color("light"), 0.05), rgba(theme-color("light"), 0.10), theme-color-level("light", 2));
+}
+
+.alert-dark {
+  @include alert-variant(rgba($black, 0.15), rgba(theme-color("light"), 0.10), theme-color-level("light", 5));
+}
+
+/*****************************************************************************
+ * GLOBAL
+ *****************************************************************************
+ */
+strong {
+   color: $gray-100;
+}
+
+code {
+  color: $gray-200;
+  padding: 0.4rem;
+  margin: 0.2rem;
+  border-radius: .2rem;
+  background-color: rgba($gray-900, 0.7);
+}
+
+/*****************************************************************************
+ * MAIN
+ *****************************************************************************
+ */
+
+html,
+body {
+  height: 100vh;
+  width: 100vh;
+  word-wrap: break-word;
+}
+
+.inner-shadow {
+  min-height: 100vh;
+  overflow-y: scroll;
+  box-shadow: inset 0 0 7rem rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+header {
+  border-top: 3px solid theme-color("accent");
+  border-bottom: 1px solid rgba(theme-color("accent"), 0.15);
+  background-color: rgba(theme-color("accent"), 0.05);
+
+  .navbar {
+    max-width: $max-width;
+
+    a {
+      color: $gray-200;
+
+      &:hover {
+        color: theme-color("accent");
+      }
+    }
+  }
+
+  navbar-nav a {
+    &:hover {
+      color: theme-color("accent") !important;
+    }
+
+    // TODO: active state
+    &:active {
+      color: black !important;
+    }
+  }
+}
+
+footer {
+  line-height: 5rem; /* Vertically center the text there */
+  border-top: 1px solid rgba(theme-color("accent"), 0.15);
+  border-bottom: 1px solid theme-color("accent");
+  background-color: rgba(theme-color("accent"), 0.05);
+}
+
+/*****************************************************************************
+ * HOME
+ *****************************************************************************
+ */
+.intro {
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: opacity(25%);
+    position: absolute;
+    object-fit: cover;
+  }
+
+  .carousel-caption {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: rgba($black, 0.15);
+  }
+
+  .arrow-left, .arrow-right {
+    color: rgba(theme-color("accent"), 0.5) !important;
+    font-size: 2rem;
+
+    &:hover, &:focus {
+      transition: color .5s;
+      color: rgba(theme-color("accent"), 1) !important;
+    }
+  }
+
+  .carousel-indicators {
+    li {
+      background-color: rgba(theme-color("accent"), 0.25);
+
+    }
+
+    .active {
+      background-color: rgba(theme-color("accent"), 1);
+    }
+  }
+}
+
+/*****************************************************************************
+ * CONTENT
+ *****************************************************************************
+ */
+
+.container {
+  max-width: $max-width;
+}
+
+.container > {
+
+  @include headings {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.pagination {
+  .page-item .page-link {
+    border: 1px solid rgba(theme-color("accent"), 0.15);
+    background-color: rgba(theme-color("accent"), 0.10);
+
+    &:hover, &:focus {
+      border: 1px solid rgba(theme-color("accent"), 1);
+      background-color: rgba(theme-color("accent"), 0.5);
+      color: rgba(theme-color-level("accent", -3), 1);
+      transition: background-color 1s ,color 1s, border 1s;
+    }
+
+  }
+
+  .page-item.disabled .page-link  {
+    border: 1px solid rgba(theme-color("accent"), 0.10);
+    background-color: rgba(theme-color("accent"), 0);
+    color: rgba(theme-color("accent"), 0.50);
+  }
+
+  .page-item.active .page-link  {
+    border: 1px solid rgba(theme-color("accent"), 0);
+    background-color: rgba(theme-color("accent"), 0.5);
+    color: theme-color("accent");
+  }
+}
+
+.fork-me-on-github {
+   font-size: 1.1rem;
+
+   a, i {
+     padding: 0;
+     margin: 0;
+   }
+}
+
+/*****************************************************************************
+ * CODEBLOCK
+ *****************************************************************************
+ */
+
+.highlight {
+
+  // margin: 1rem -1rem; [> -1em left/right margins for full-bleed code samples <]
+  padding: 1rem;
+
+  pre {
+    padding: 1rem;
+    border-radius: .3rem;
+    border: 1px solid rgba(theme-color("accent"), 0.15);
+    background-color: rgba(theme-color-level("accent", 12), 0.25) !important;
+  }
+
+  code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    font-family: monospace;
+    background: 0 0;
+    border: 0;
+    white-space: pre;
+    overflow: scroll;
+  }
+}

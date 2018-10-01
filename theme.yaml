@@ -1,0 +1,17 @@
+name: "Pragmatic"
+license: "MIT"
+licenselink: ""
+description: "Personal blog theme powered by Hugo"
+homepage: ""
+tags:
+  - blog
+  - minimal
+  - personal
+  - responsive
+features:
+  - responsive
+min_version: "0.24.1"
+
+author:
+  name: "Alexey Shchukin"
+  homepage: "http://hard.reset.sh/"

@@ -1,0 +1,17 @@
+{{ $alert_type := slice "primary" "secondary" "success" "danger" "warning" "info" "light" "dark" }}
+{{ $type := .Get "type" | default "primary" }}
+
+
+{{ if in $alert_type $type }}
+    <div class="alert alert-{{ $type }}" role="alert">
+        {{ with .Get "title" }}
+            {{ . | markdownify }}
+        {{ end }}
+
+        {{ with .Get "content" }}
+            {{ . | markdownify }}
+        {{ end }}
+    </div>
+{{ else }}
+    {{ errorf "[shortcode.alert] wrong value for parameter `type`: %#v" $type }}
+{{ end }}

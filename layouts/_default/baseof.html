@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode }}">
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+        <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
+        {{ if .Site.Params.favicon }}
+        <link rel="icon" href="{{ .Site.Params.favicon | absURL }}">
+        {{ end }}
+        {{ partial "css" . }} {{ partial "js" . }} {{ .Hugo.Generator }}
+        {{ if .RSSLink }}
+        <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+        <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+        {{ end }}
+
+        {{ if .Site.GoogleAnalytics }}
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', '{{ .Site.GoogleAnalytics }}');
+        </script>
+        {{ end }}
+    </head>
+
+    {{ if .Site.Params.MathJax | default true }}
+    <!-- adds MathJax support -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    {{ end }}
+
+    <body>
+
+        <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
+            <header class="header w-100">
+                {{ block "header" . }}
+                <nav class="navbar navbar-expand-md d-flex flex-nowrap mx-auto">
+                    <button class="navbar-toggler border-accent bg-accent" type="button" data-toggle="collapse" data-target="#nav-main" aria-controls="nav-main" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div id="#nav-brand" class="navbar-brand flex-column w-25 d-none d-md-block">
+                        <a class="navbar-brand" href="/">
+                            <i class="fa fa-brain m-3"></i>
+                            <span class="">hard.reset.sh</span>
+                        </a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse flex-column w-50" id="nav-main">
+                        {{ if .Site.Menus.main }}
+                        <ul class="nav navbar-nav">
+                            {{ range sort .Site.Menus.main }}
+                            <li class="navbar-nav m-1">
+                                <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+                            </li>
+                            {{ end }}
+                        </ul>
+                        {{ end }}
+                    </div>
+
+                    <div class="collapse navbar-collapse flex-column w-25" id="nav-icons">
+                        {{ if .Site.Menus.icon }}
+                        <ul class="nav navbar-nav navbar-right">
+                            {{ range sort .Site.Menus.icon }}
+                            <li class="navbar-icon m-3">
+                                <a href="{{ .URL }}">
+                                    <i class="fa fa-{{ .Name }}"></i>
+                                </a>
+                            </li>
+                            {{ end }}
+                        </ul>
+                        {{ end }}
+                    </div>
+                </nav>
+                {{ end }}
+            </header>
+
+            <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">
+                {{ block "main" . }}
+                <!-- <div class="d-flex flex-nowrap mx-auto"> -->
+
+                <!-- </div> -->
+                {{ end }}
+            </main>
+
+            <footer class="footer w-100 mx-auto">
+                {{ block "footer" . }}
+                <div class="container text-center">
+                    <span class="text-accent">{{ .Site.Params.copyright | default "&copy; All rights reserved." | markdownify }}</span>
+                </div>
+                {{ end }}
+            </footer>
+        </div>
+    </body>
+</html>

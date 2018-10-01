@@ -1,0 +1,9 @@
+{{ define "main" }}
+    <div class="container text-center">
+        <h2>{{ .Title }}</h2>
+
+        {{ range (.Paginator 5).Pages }} {{ partial "list-item" . }} {{ end }}
+
+        {{ partial "paginator" . }}
+    </div>
+{{ end }}

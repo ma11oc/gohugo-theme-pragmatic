@@ -1,0 +1,31 @@
+#TableOfContents {
+  right: 2rem;
+  top: 2rem;
+  width: 20rem;
+  margin-right: -20rem;
+  margin-top: 5rem;
+  position: sticky;
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  li > a {
+    color: $gray-500;
+    transition: color 1s;
+
+    &:hover, &:focus {
+      color: color("white") !important;
+    }
+
+    &.active {
+      color: $gray-300;
+      background-color: rgba(theme-color-level("accent", -7), 0.07);
+      border-right: 3px solid theme-color("accent");
+    }
+  }
+}
