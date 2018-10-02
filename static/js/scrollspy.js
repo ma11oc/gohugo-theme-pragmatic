@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log("document is ready")
   var element = '.inner-shadow'
 
   $('#TableOfContents a').addClass("nav-link")

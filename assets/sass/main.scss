@@ -28,6 +28,9 @@
   .badge-#{$color} {
     @include badge-variant(rgba($value, 0.10));
 
+    font-family: Roboto, sans-serif;
+    font-size: small;
+
     color: theme-color-level($color, -5);
     border: 1px solid rgba($value, 0.15);
 
@@ -85,6 +88,8 @@ strong {
 }
 
 code {
+  font-family: 'Roboto Mono', monospace !important;
+
   color: $gray-200;
   padding: 0.4rem;
   margin: 0.2rem;
@@ -100,7 +105,7 @@ code {
 html,
 body {
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   word-wrap: break-word;
 }
 
@@ -141,7 +146,8 @@ header {
 }
 
 footer {
-  line-height: 5rem; /* Vertically center the text there */
+  // line-height: 5rem; [> Vertically center the text there <]
+  height: 6rem;
   border-top: 1px solid rgba(theme-color("accent"), 0.15);
   border-bottom: 1px solid theme-color("accent");
   background-color: rgba(theme-color("accent"), 0.05);
@@ -243,7 +249,7 @@ footer {
 
 .highlight {
 
-  // margin: 1rem -1rem; [> -1em left/right margins for full-bleed code samples <]
+  max-width: 90vw;
   padding: 1rem;
 
   pre {
@@ -261,6 +267,6 @@ footer {
     background: 0 0;
     border: 0;
     white-space: pre;
-    overflow: scroll;
+    overflow-x: scroll;
   }
 }

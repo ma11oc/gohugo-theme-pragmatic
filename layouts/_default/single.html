@@ -9,10 +9,10 @@
             </span>
 
             <div class="mt-2">
-                {{ if and .Params.github .Params.forkit }}
+                {{ if and .Params.github .Params.forkable }}
                 <a class="fork-me-on-github badge badge-success p-2" href="{{ .Params.github }}">
-                    <i class="fas fa-code-branch" data-toggle="tooltip" title="fork me on github"></i>
-                    &nbsp;fork it!
+                    <i class="fas fa-code-branch"></i>
+                    &nbsp;forkable!
                 </a>
                     {{ if .Params.license }}
                     <span class="badge badge-success p-2">{{ .Params.license }}</span>

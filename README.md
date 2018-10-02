@@ -21,7 +21,7 @@ sudo mv /tmp/hugo /usr/local/bin/hugo
 - [ ] Add examples
 - [ ] Add RSS
 - [ ] Refactor intro
-- [ ] Make code blocks responsive
+- [v] Make code blocks responsive
 
 ### Known issues
 

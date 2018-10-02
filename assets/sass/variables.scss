@@ -6,10 +6,6 @@
 {{ $scratch.SetInMap "colors" "accent"  (.Param "theme.colors.accent"  | default "#dc3545") }}
 {{ $scratch.SetInMap "colors" "body-bg" (.Param "theme.colors.body-bg" | default "#2d2d2d") }}
 
-/*
- * {{ errorf "$scratch: %v" $scratch }}
- */
-
 $theme-colors: (
   {{ range $key, $value := $scratch.Get "colors" }}
     {{ $key }}: {{ $value }},
@@ -31,6 +27,7 @@ $body-color: $gray-300;
 
 $link-color: map-get($theme-colors, "accent");
 
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto|Roboto+Mono');
 $font-family-sans-serif: {{ (.Param "font" | default "Raleway") }};
 
 @import "node_modules/bootstrap/scss/bootstrap";

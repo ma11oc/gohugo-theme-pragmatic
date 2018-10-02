@@ -40,20 +40,21 @@
         <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
             <header class="header w-100">
                 {{ block "header" . }}
-                <nav class="navbar navbar-expand-md d-flex flex-nowrap mx-auto">
-                    <button class="navbar-toggler border-accent bg-accent" type="button" data-toggle="collapse" data-target="#nav-main" aria-controls="nav-main" aria-expanded="false" aria-label="Toggle navigation">
+                <nav class="navbar navbar-dark navbar-expand-md mx-auto">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-main" aria-controls="nav-main" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div id="#nav-brand" class="navbar-brand flex-column w-25 d-none d-md-block">
-                        <a class="navbar-brand" href="/">
-                            <i class="fas fa-lightbulb m-3"></i>
-                            <span class="">hard.reset.sh</span>
-                        </a>
-                    </div>
+                    <!--
+                       - <div id="#nav-brand" class="navbar-brand justify-content-start w-25 d-none d-md-block">
+                       -     <a class="navbar-brand p-1 ml-4" href="/">
+                       -         <i class="fas fa-lightbulb"></i>
+                       -         [> <span class="">hard.reset.sh</span> <]
+                       -     </a>
+                       - </div>
+                       -->
 
-
-                    <div class="collapse navbar-collapse flex-column w-50" id="nav-main">
+                    <div class="collapse navbar-collapse justify-content-center text-center w-50" id="nav-main">
                         {{ if .Site.Menus.main }}
                         <ul class="nav navbar-nav">
                             {{ range sort .Site.Menus.main }}
@@ -65,19 +66,6 @@
                         {{ end }}
                     </div>
 
-                    <div class="collapse navbar-collapse flex-column w-25" id="nav-icons">
-                        {{ if .Site.Menus.icon }}
-                        <ul class="nav navbar-nav navbar-right">
-                            {{ range sort .Site.Menus.icon }}
-                            <li class="navbar-icon m-3">
-                                <a href="{{ .URL }}">
-                                    <i class="{{ .Name }}"></i>
-                                </a>
-                            </li>
-                            {{ end }}
-                        </ul>
-                        {{ end }}
-                    </div>
                 </nav>
                 {{ end }}
             </header>
@@ -90,10 +78,27 @@
                 {{ end }}
             </main>
 
-            <footer class="footer w-100 mx-auto">
+            <footer class="footer d-none d-sm-block w-100 mx-auto">
                 {{ block "footer" . }}
-                <div class="container text-center">
-                    <span class="text-accent">{{ .Site.Params.copyright | default "&copy; All rights reserved." | markdownify }}</span>
+                <div class="container mt-4 text-center">
+                    {{ $msg := printf "&copy; %v %v" (now.Format "2006") "| Powered by [Hugo](https://gohugo.io) and [Pragmatic](https://github.com/ma11oc/gohugo-theme-pragmatic)" }}
+                    <span class="text-accent">{{ .Site.Params.copyright | default $msg | markdownify }}</span>
+
+                    <nav class="navbar navbar-expand-md mx-auto">
+                        <div class="collapse navbar-collapse justify-content-center" id="nav-icons">
+                            {{ if .Site.Menus.icons }}
+                            <ul class="nav navbar-nav navbar-right">
+                                {{ range sort .Site.Menus.icons }}
+                                <li class="navbar-icon mx-2">
+                                    <a href="{{ .URL }}">
+                                        <i class="{{ .Name }}"></i>
+                                    </a>
+                                </li>
+                                {{ end }}
+                            </ul>
+                            {{ end }}
+                        </div>
+                    </nav>
                 </div>
                 {{ end }}
             </footer>
