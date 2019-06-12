@@ -1,39 +1,24 @@
 <!doctype html>
 <html lang="{{ .Site.LanguageCode }}">
+    {{ hugo }}
     <head>
         <meta charset="utf-8">
-
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
         <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
 
-        {{ if .Site.Params.favicon }}
-            <link rel="icon" href="{{ .Site.Params.favicon | absURL }}">
+        {{- if .Site.Params.favicon | default false -}}
+            {{- partial "favicon"}}
         {{ end }}
 
-        {{ partial "css" . }} {{ partial "js" . }} {{ .Hugo.Generator }}
-        {{ if .RSSLink }}
-        <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
-        <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
-        {{ end }}
+        {{ partial "css" . }}
+        {{ partial "js" . }}
 
-        {{ if .Site.GoogleAnalytics }}
-        <!-- Global Site Tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments)};
-          gtag('js', new Date());
+        {{- with .OutputFormats.Get "RSS" }}
+            {{- .RelPermalink }}
+        {{- end }}
 
-          gtag('config', '{{ .Site.GoogleAnalytics }}');
-        </script>
-        {{ end }}
     </head>
-
-    {{ if .Site.Params.MathJax | default false }}
-    <!-- adds MathJax support -->
-        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    {{ end }}
 
     <body>
 
@@ -44,15 +29,6 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-main" aria-controls="nav-main" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
-                    <!--
-                       - <div id="#nav-brand" class="navbar-brand justify-content-start w-25 d-none d-md-block">
-                       -     <a class="navbar-brand p-1 ml-4" href="/">
-                       -         <i class="fas fa-lightbulb"></i>
-                       -         [> <span class="">hard.reset.sh</span> <]
-                       -     </a>
-                       - </div>
-                       -->
 
                     <div class="collapse navbar-collapse justify-content-center text-center w-50" id="nav-main">
                         {{ if .Site.Menus.main }}
@@ -72,9 +48,6 @@
 
             <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">
                 {{ block "main" . }}
-                <!-- <div class="d-flex flex-nowrap mx-auto"> -->
-
-                <!-- </div> -->
                 {{ end }}
             </main>
 

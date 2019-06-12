@@ -11,17 +11,15 @@ sudo mv /tmp/hugo /usr/local/bin/hugo
 
 - Install `npm`
 - Install dependencies
+    ```
+    npm install
+    ```
 
-## TODO
-- [ ] Fix navbar collapsed button
-- [ ] Justify content within navbar
-- [ ] Handle all js as assets
-- [ ] Customize horizontal scrollbar within code blocks
-- [ ] Get rid of vertical scrollbar at intro page
-- [ ] Add examples
-- [ ] Add RSS
-- [ ] Refactor intro
-- [v] Make code blocks responsive
+- Build favicon bundle
+    ```
+    make favicon
+    ```
+
 
 ### Known issues
 

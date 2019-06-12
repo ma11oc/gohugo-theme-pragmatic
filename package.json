@@ -1,0 +1,34 @@
+{
+  "name": "gohugo-theme-pragmatic",
+  "version": "0.1.0",
+  "description": "Minimalistic theme for Hugo on bootstrap 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ma11oc/gohugo-theme-pragmatic.git"
+  },
+  "keywords": [
+    "pragmatic",
+    "minimal",
+    "bootstrap",
+    "dark",
+    "highlightjs",
+    "mathjax"
+  ],
+  "author": "Alexey Shchukin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ma11oc/gohugo-theme-pragmatic/issues"
+  },
+  "homepage": "https://github.com/ma11oc/gohugo-theme-pragmatic#readme",
+  "dependencies": {
+    "autoprefixer": "^9.6.0",
+    "bootstrap": "^4.3.1",
+    "cli-real-favicon": "0.0.7",
+    "postcss-cli": "^6.1.2"
+  },
+  "devDependencies": {}
+}

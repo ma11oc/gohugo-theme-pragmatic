@@ -1,23 +1,26 @@
-<!-- highlight.js -->
-{{ if .Site.Params.highlight | default false }}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/{{ .Site.Params.highlightStyle | default "default" }}.min.css">
-{{ end }}
-
-<!-- font awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+<!-- bootstrap -->
+        <link href="{{ .Site.Params.assets.bootstrap.css.src | default "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" }}" rel="stylesheet" integrity="{{ .Site.Params.assets.bootstrap.css.integrity | default "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" }}" crossorigin="anonymous">
 <!-- main -->
-{{ $scratch := newScratch }}
 
-{{ $vars :=  resources.Get "sass/variables.scss" | resources.ExecuteAsTemplate "vars.scss" . }}
-{{ $scratch.Add "bundle" (slice $vars) }}
-{{ $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) }}
+{{- $scratch := newScratch -}}
+{{- $vars :=  resources.Get "sass/variables.scss" | resources.ExecuteAsTemplate "vars.scss" . }}
+{{- $scratch.Add "bundle" (slice $vars) }}
+{{- $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) -}}
+{{- range .Site.Params.assets.custom.sass -}}
+    {{- $scratch.Add "bundle" (slice (resources.Get . )) -}}
+{{- end -}}
 
-{{ range .Site.Params.sass }}
-    {{ $scratch.Add "bundle" (slice (resources.Get . )) }}
-{{ end }}
+{{- $bundle := $scratch.Get "bundle" | resources.Concat "css/bundle.scss" }}
+{{- $styles := $bundle | toCSS | postCSS | minify | fingerprint }}
 
-{{ $bundle := $scratch.Get "bundle" | resources.Concat "css/bundle.scss" }}
-{{ $styles := $bundle | toCSS | postCSS | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
 
-<link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+<!-- fontawesome -->
+        <link href="{{ .Site.Params.assets.fontawesome.src | default "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" }}" rel="stylesheet" integrity="{{ .Site.Params.assets.fontawesome.integrity | default "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" }}" crossorigin="anonymous">
+
+<!-- highlight.js -->
+{{- if .Site.Params.assets.highlightjs.enabled | default false }}
+    {{- $version := .Site.Params.assets.highlightjs.version | default "9.15.8" }}
+    {{- $style := .Site.Params.assets.highlightjs.style | default "default" }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $version }}/styles/{{ $style }}.min.css">
+{{- end }}

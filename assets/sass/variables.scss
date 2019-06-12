@@ -30,6 +30,6 @@ $link-color: map-get($theme-colors, "accent");
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto|Roboto+Mono');
 $font-family-sans-serif: {{ (.Param "font" | default "Raleway") }};
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 $max-width: 1140px;
