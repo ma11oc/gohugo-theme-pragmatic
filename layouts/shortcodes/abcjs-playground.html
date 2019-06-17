@@ -1,0 +1,62 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+<div class="abc-warnings alert alert-danger" role="alert" id="warnings"></div>
+
+<textarea id="score" autocomplete="off" class="w-100" rows="15">
+X: 1
+T: Playground
+C: Author
+M: 4/4
+L: 1/8
+Q: 1/8=116
+K: C
+|:[CEG]4[GBC]4|
+</textarea>
+
+<div id="paper"></div>
+<div class="abcjs-midi">
+    <div id="midi" class="abcjs-inline-midi"></div>
+    <div id="download" class="abcjs-download-midi"></div>
+</div>
+<script>
+    // var colorDefault  = "{{ .Site.Params.theme.colors.text | default "#fff"  }}"
+    // var colorSelected = "{{ .Site.Params.theme.colors.accent | default "#dc3545"  }}"
+
+    window.onload = function() {
+        var abcEditor = new ABCJS.Editor(
+            "score",
+            {
+                paper_id: "paper",
+                warnings_id: "warnings",
+                midi_id: "midi",
+                midi_download_id: "download",
+                // gui: true,
+                generate_midi: true,
+                abcjsParams: {
+                    add_classes: true,
+                    generateInline: true,
+                    generateDownload: true,
+                    downloadLabel: '<i class="fa fa-download"></i>',
+                    downloadClass: 'badge badge-light',
+                    inlineControls: {
+                        loopToggle: true,
+                        tempo: true,
+                    },
+                },
+            });
+
+        // abcEditor.setNotDirty();
+        // abcEditor.setReadOnly(false);
+        // abcEditor.pause(true);
+        // abcEditor.pauseMidi(false);
+
+        // document.getElementById('score').addEventListener('change', abcEditor.fireChanged());
+        // document.getElementById('score').addEventListener('keyup', abcEditor.fireChanged());
+    }
+
+</script>
+
+<style>
+svg .abcjs-note,.abcjs-beam-elem,.abcjs-ending {
+    fill: #fff;
+}
+</style>

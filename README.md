@@ -1,3 +1,10 @@
+## Features
+- bootstrap 4
+- scrollspy
+- mathjax
+- highlightjs
+- abcjs
+
 ## Requirements
 - hugo **with extras**
 
@@ -22,7 +29,18 @@ sudo mv /tmp/hugo /usr/local/bin/hugo
 
 
 ### Known issues
+#### PostCSS not found
+Unfortunately, it's not enough to install `postcss-cli` executable into theme's node_modules directory. Hugo doesn't look there. Thus, you have to install `postcss-cli` globally into `/usr/local` directory and most likely with priveleged permissions (`sudo`) or into your project root directory.
 
+```
+cd /project/root
+
+npm install postcss-cli autoprefixer
+
+cat >> .gitignore << EOF
+node_modules/
+package-lock.json
+```
 
 ## Versioning
 

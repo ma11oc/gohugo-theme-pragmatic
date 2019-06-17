@@ -1,14 +1,17 @@
 <!-- bootstrap -->
         <link href="{{ .Site.Params.assets.bootstrap.css.src | default "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" }}" rel="stylesheet" integrity="{{ .Site.Params.assets.bootstrap.css.integrity | default "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" }}" crossorigin="anonymous">
-<!-- main -->
 
 {{- $scratch := newScratch -}}
+<!-- main -->
 {{- $vars :=  resources.Get "sass/variables.scss" | resources.ExecuteAsTemplate "vars.scss" . }}
 {{- $scratch.Add "bundle" (slice $vars) }}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) -}}
-{{- range .Site.Params.assets.custom.sass -}}
-    {{- $scratch.Add "bundle" (slice (resources.Get . )) -}}
-{{- end -}}
+{{- $scratch.Add "bundle" (slice (resources.Get "sass/scrollspy.scss")) -}}
+
+<!-- abcjs -->
+{{- if .Site.Params.assets.abcjs.enabled | default false }}
+    {{- $scratch.Add "bundle" (slice (resources.Get "sass/abcjs-midi.scss")) -}}
+{{- end }}
 
 {{- $bundle := $scratch.Get "bundle" | resources.Concat "css/bundle.scss" }}
 {{- $styles := $bundle | toCSS | postCSS | minify | fingerprint }}
@@ -18,9 +21,11 @@
 <!-- fontawesome -->
         <link href="{{ .Site.Params.assets.fontawesome.src | default "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" }}" rel="stylesheet" integrity="{{ .Site.Params.assets.fontawesome.integrity | default "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" }}" crossorigin="anonymous">
 
-<!-- highlight.js -->
+<!-- highlightjs -->
 {{- if .Site.Params.assets.highlightjs.enabled | default false }}
     {{- $version := .Site.Params.assets.highlightjs.version | default "9.15.8" }}
     {{- $style := .Site.Params.assets.highlightjs.style | default "default" }}
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $version }}/styles/{{ $style }}.min.css">
 {{- end }}
+
+

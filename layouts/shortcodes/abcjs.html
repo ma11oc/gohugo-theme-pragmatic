@@ -1,0 +1,62 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+{{- $src_id := .Get "src_id" -}}
+
+<div class="paper" id="{{ $src_id }}-paper"></div>
+<div class="abcjs-midi" id="{{ $src_id }}-midi"></div>
+
+<script type="text/javascript">
+    var src = document.getElementById('{{ $src_id }}')
+    var dst = document.getElementById('{{ $src_id }}-paper')
+    var abc = src.innerHTML;
+
+    var colorDefault  = "{{ .Site.Params.theme.colors.text | default "#fff"  }}"
+    var colorSelected = "{{ .Site.Params.theme.colors.accent | default "#dc3545"  }}"
+
+    var midiListener = function(prev, next) {
+        if (next != null) {
+            next.elements.forEach(function(element) {
+                element.forEach(function(item) {
+                    if (item.classList.contains('abcjs-note')) {
+                        item.setAttribute("fill", colorSelected);
+                    }
+                })
+            })
+        }
+
+        if (prev != null) {
+            prev.elements.forEach(function(element) {
+                element.forEach(function(item) {
+                    if (item.classList.contains('abcjs-note')) {
+                        item.setAttribute("fill", colorDefault);
+                    }
+                })
+            })
+        }
+    }
+
+    src.style.display = "none";
+
+    tunes = ABCJS.renderAbc("{{ $src_id }}-paper", abc, {
+        add_classes: true,
+        responsive: "resize",
+    });
+
+    ABCJS.renderMidi("{{ $src_id }}-midi", abc, {
+        animate: {
+            listener: midiListener,
+            target: tunes[0],
+        },
+        generateDownload: true,
+        generateInline: true,
+        downloadLabel: '<i class="fa fa-download"></i>',
+        downloadClass: 'badge badge-light',
+        inlineControls: {
+            // loopToggle: true,
+        }
+    });
+
+    document.getElementById("{{ $src_id }}-paper").querySelectorAll(".abcjs-note,.abcjs-beam-elem,.abcjs-ending").forEach((el) => {
+        if (el.getAttribute("fill"))
+            el.setAttribute("fill", colorDefault);
+    });
+</script>

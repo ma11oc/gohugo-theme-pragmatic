@@ -1,0 +1,281 @@
+$theme-color: "light";
+
+@mixin bg-inactive {
+  color: rgba(theme-color($theme-color), 1);
+  border: 1px solid rgba(theme-color($theme-color), 0.15);
+  background-color: rgba(theme-color($theme-color), 0.10);
+}
+
+@mixin bg-active {
+  border: 1px solid rgba(theme-color($theme-color), 1);
+  background-color: rgba(theme-color($theme-color), 0.5);
+  color: rgba(theme-color-level($theme-color, -3), 1);
+}
+
+@mixin button {
+  @include bg-inactive
+
+  &:hover, &:focus {
+    @include bg-active
+    transition: background-color 1s ,color 1s, border 1s;
+  }
+}
+
+@mixin button-pushed {
+  @include bg-active
+}
+
+/*****************************************************************************
+ * general
+ *****************************************************************************
+ */
+
+.abcjs-midi {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0 1rem;
+}
+
+.abcjs-inline-midi {
+  height: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  flex-grow: 9;
+  // box-sizing: border-box;
+
+  .abcjs-btn {
+    @include button
+    width: 2rem;
+    height: 100%;
+    display: inline-block;
+    font: normal normal normal 1rem FontAwesome;
+    font-size: 1rem;
+  }
+
+ /*****************************************************************************
+  * selection
+  *****************************************************************************
+  */
+
+  .abcjs-midi-selection {
+    .abcjs-pushed {
+      // box-sizing: border-box;
+    }
+
+    &:before {
+      content: "\f07e"; /* fa-arrows-h [&#xf07e;] */
+    }
+  }
+
+ /*****************************************************************************
+  * loop
+  *****************************************************************************
+  */
+
+  .abcjs-midi-loop {
+    border-radius: 0.2rem;
+    margin-right: 0.5rem;
+
+    &:before {
+      content: "\f021"; /*   fa-refresh [&#xf021;] */
+    }
+
+    &.abcjs-pushed {
+      @include button-pushed
+    }
+  }
+
+
+ /*****************************************************************************
+  * reset
+  *****************************************************************************
+  */
+
+  .abcjs-midi-reset {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+
+    &:before {
+      content: "\f048"; /*   fa-step-backward [&#xf048;] */
+    }
+
+    &.abcjs-pushed {
+      @include button-pushed
+    }
+  }
+
+
+ /*****************************************************************************
+  * start
+  *****************************************************************************
+  */
+
+  .abcjs-midi-start {
+    &:before {
+      content: "\f04b"; /*   fa-play [&#xf04b;]    fa-pause [&#xf04c;] */
+    }
+
+    &.abcjs-pushed{
+      @include button-pushed
+      &:before {
+        content: "\f04c"; /*   fa-play [&#xf04b;]    fa-pause [&#xf04c;] */
+      }
+    }
+
+    &.abcjs-loading {
+      outline: none;
+      animation: a 1s infinite steps(8);
+
+      &:before {
+        content: "\f110"; /*   fa-loading */
+      }
+    }
+  }
+
+ /*****************************************************************************
+  * progress
+  *****************************************************************************
+  */
+
+  .abcjs-midi-progress-background {
+    @include bg-inactive
+
+    height: 2rem;
+    position: relative;
+    flex: 1;
+    padding: 0;
+  }
+
+  .abcjs-midi-progress-indicator {
+    @include bg-active
+
+    width: 0.5rem;
+    height: 2rem;
+    position: absolute;
+    display: inline-block;
+    top: -1px;
+    left: 0;
+  }
+
+ /*****************************************************************************
+  * clock
+  *****************************************************************************
+  */
+
+  .abcjs-midi-clock {
+    @include bg-inactive
+
+    height: 100%;
+    display: inline-block;
+
+    font-size: 1rem;
+
+    padding-top: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+  }
+
+  .abcjs-midi-post {
+    border: 1px solid red;
+  }
+
+  .abcjs-midi-pre {
+    border: 1px solid red;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+ /*****************************************************************************
+  * tempo
+  *****************************************************************************
+  */
+
+  .abcjs-tempo-wrapper {
+    @include bg-inactive
+
+    height: 100%;
+    float: right;
+    font-size: 0.8rem;;
+    display: inline-block;
+
+    border-radius: 0.2rem;
+    margin-left: 0.5rem;
+
+    padding-top: 0.2rem;
+    padding-right: 0.2rem;
+    padding-left: 0.2rem;
+
+  }
+
+  .abcjs-midi-tempo {
+    color: rgba(theme-color($theme-color), 1);
+    border: 1px solid rgba(theme-color($theme-color), 0.15);
+    background-color: rgba(theme-color("dark"), 0.8);
+
+    border-radius: 0.1em;
+    height: 1.5rem;
+    width: 4rem;
+  }
+
+}
+
+.abcjs-download-midi,#download {
+  font: normal normal normal 1rem FontAwesome;
+
+  height: 2rem;
+  width: 2rem;
+
+  border-radius: 0.2rem;
+  margin-left: 0.5rem;
+  //flex-grow: 1;
+
+  padding: 0.4rem;
+
+  // &:before {
+  //   content: "\f119"; /*   fa-download */
+  // }
+  > a {
+    color: rgba(theme-color-level($theme-color, -5), 1);
+
+    &:hover, &:focus {
+      color: theme-color-level($theme-color, -7) !important;
+    }
+  }
+}
+
+svg .abcjs-bar,
+    .abcjs-brace,
+    .abcjs-chord,
+    .abcjs-decoration,
+    .abcjs-ending,
+    .abcjs-lyric,
+    .abcjs-meta-bottom,
+    .abcjs-meta-top,
+    .abcjs-rest,
+    .abcjs-slur,
+    .abcjs-staff,
+    .abcjs-staff-extra,
+    .abcjs-stem,
+    .abcjs-tempo {
+    fill: #ccc !important;
+}
+
+textarea {
+  &#abc {
+    width: 100%;
+    height: 20rem;
+  }
+}
+
+.abc-warnings {
+  font-size: 0.8rem !important;
+
+  &span {
+    font-size: 2rem !important;
+  }
+}
