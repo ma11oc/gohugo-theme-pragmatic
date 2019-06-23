@@ -1,34 +1,60 @@
-$theme-color: "light";
-
-@mixin bg-inactive {
-  color: rgba(theme-color($theme-color), 1);
-  border: 1px solid rgba(theme-color($theme-color), 0.15);
-  background-color: rgba(theme-color($theme-color), 0.10);
-}
-
-@mixin bg-active {
-  border: 1px solid rgba(theme-color($theme-color), 1);
-  background-color: rgba(theme-color($theme-color), 0.5);
-  color: rgba(theme-color-level($theme-color, -3), 1);
-}
+$color: "light";
 
 @mixin button {
-  @include bg-inactive
+  @include bg-inactive($color)
 
   &:hover, &:focus {
-    @include bg-active
+    @include bg-active($color)
     transition: background-color 1s ,color 1s, border 1s;
   }
 }
 
 @mixin button-pushed {
-  @include bg-active
+  @include bg-active($color)
 }
 
 /*****************************************************************************
  * general
  *****************************************************************************
  */
+
+.abcjs-container {
+
+  svg {
+    .abcjs-bar,
+    .abcjs-brace,
+    .abcjs-chord,
+    .abcjs-decoration,
+    .abcjs-ending,
+    .abcjs-lyric,
+    .abcjs-meta-bottom,
+    .abcjs-meta-top,
+    .abcjs-rest,
+    .abcjs-slur,
+    .abcjs-staff,
+    .abcjs-staff-extra,
+    .abcjs-stem,
+    .abcjs-tempo,
+    .abcjs-title {
+      fill: #ccc !important;
+    }
+
+    .abcjs-note,
+    .abcjs-beam-elem,
+    .abcjs-ending {
+      fill: $white;
+    }
+
+    .abcjs-title {
+      font-family: Raleway !important;
+    }
+
+    .abcjs-lyric {
+      font-family: $font-family-condensed !important;
+      font-weight: normal;
+    }
+  }
+}
 
 .abcjs-midi {
   display: flex;
@@ -41,16 +67,16 @@ $theme-color: "light";
   width: 100%;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 
   flex-grow: 9;
-  // box-sizing: border-box;
 
   .abcjs-btn {
     @include button
     width: 2rem;
     height: 100%;
     display: inline-block;
-    font: normal normal normal 1rem FontAwesome;
+    font-family: $font-family-fontawesome;
     font-size: 1rem;
   }
 
@@ -61,7 +87,7 @@ $theme-color: "light";
 
   .abcjs-midi-selection {
     .abcjs-pushed {
-      // box-sizing: border-box;
+      @include button-pushed
     }
 
     &:before {
@@ -140,7 +166,7 @@ $theme-color: "light";
   */
 
   .abcjs-midi-progress-background {
-    @include bg-inactive
+    @include bg-inactive($color)
 
     height: 2rem;
     position: relative;
@@ -149,7 +175,7 @@ $theme-color: "light";
   }
 
   .abcjs-midi-progress-indicator {
-    @include bg-active
+    @include bg-active($color)
 
     width: 0.5rem;
     height: 2rem;
@@ -165,7 +191,7 @@ $theme-color: "light";
   */
 
   .abcjs-midi-clock {
-    @include bg-inactive
+    @include bg-inactive($color)
 
     height: 100%;
     display: inline-block;
@@ -180,15 +206,9 @@ $theme-color: "light";
     border-bottom-right-radius: 0.2rem;
   }
 
-  .abcjs-midi-post {
-    border: 1px solid red;
-  }
+  .abcjs-midi-post {}
 
-  .abcjs-midi-pre {
-    border: 1px solid red;
-    display: inline-block;
-    box-sizing: border-box;
-  }
+  .abcjs-midi-pre {}
 
  /*****************************************************************************
   * tempo
@@ -196,7 +216,7 @@ $theme-color: "light";
   */
 
   .abcjs-tempo-wrapper {
-    @include bg-inactive
+    @include bg-inactive($color)
 
     height: 100%;
     float: right;
@@ -213,8 +233,8 @@ $theme-color: "light";
   }
 
   .abcjs-midi-tempo {
-    color: rgba(theme-color($theme-color), 1);
-    border: 1px solid rgba(theme-color($theme-color), 0.15);
+    color: rgba(theme-color($color), 1);
+    border: 1px solid rgba(theme-color($color), 0.15);
     background-color: rgba(theme-color("dark"), 0.8);
 
     border-radius: 0.1em;
@@ -240,35 +260,11 @@ $theme-color: "light";
   //   content: "\f119"; /*   fa-download */
   // }
   > a {
-    color: rgba(theme-color-level($theme-color, -5), 1);
+    color: rgba(theme-color-level($color, -5), 1);
 
     &:hover, &:focus {
-      color: theme-color-level($theme-color, -7) !important;
+      color: theme-color-level($color, -7) !important;
     }
-  }
-}
-
-svg .abcjs-bar,
-    .abcjs-brace,
-    .abcjs-chord,
-    .abcjs-decoration,
-    .abcjs-ending,
-    .abcjs-lyric,
-    .abcjs-meta-bottom,
-    .abcjs-meta-top,
-    .abcjs-rest,
-    .abcjs-slur,
-    .abcjs-staff,
-    .abcjs-staff-extra,
-    .abcjs-stem,
-    .abcjs-tempo {
-    fill: #ccc !important;
-}
-
-textarea {
-  &#abc {
-    width: 100%;
-    height: 20rem;
   }
 }
 

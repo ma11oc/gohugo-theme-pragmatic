@@ -1,37 +1,31 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
-{{- $src_id := .Get "src_id" -}}
+{{- $_hugo_config := `{ "version": 1 }` -}}
+
+{{- $src_id := .Get "src_id" }}
+{{- $note_color_def := .Get "note_color_def" | default "white" }}
+{{- $note_color_sel := .Get "note_color_sel" | default "var(--accent)" }}
 
 <div class="paper" id="{{ $src_id }}-paper"></div>
 <div class="abcjs-midi" id="{{ $src_id }}-midi"></div>
 
 <script type="text/javascript">
-    var src = document.getElementById('{{ $src_id }}')
-    var dst = document.getElementById('{{ $src_id }}-paper')
+    function colorRange(range, color) {
+            if (range && range.elements) {
+                range.elements.forEach(function (set) {
+                    set.forEach(function (item) {
+                        item.setAttribute("fill", color);
+                        item.style.fill = color;
+                    });
+                });
+            }
+        };
+
+    var src = document.getElementById('{{ $src_id }}');
+    var dst = document.getElementById('{{ $src_id }}-paper');
     var abc = src.innerHTML;
 
-    var colorDefault  = "{{ .Site.Params.theme.colors.text | default "#fff"  }}"
-    var colorSelected = "{{ .Site.Params.theme.colors.accent | default "#dc3545"  }}"
-
     var midiListener = function(prev, next) {
-        if (next != null) {
-            next.elements.forEach(function(element) {
-                element.forEach(function(item) {
-                    if (item.classList.contains('abcjs-note')) {
-                        item.setAttribute("fill", colorSelected);
-                    }
-                })
-            })
-        }
-
-        if (prev != null) {
-            prev.elements.forEach(function(element) {
-                element.forEach(function(item) {
-                    if (item.classList.contains('abcjs-note')) {
-                        item.setAttribute("fill", colorDefault);
-                    }
-                })
-            })
-        }
+        colorRange(next, "{{ $note_color_sel }}");
+        colorRange(prev, "{{ $note_color_def }}");
     }
 
     src.style.display = "none";
@@ -51,12 +45,7 @@
         downloadLabel: '<i class="fa fa-download"></i>',
         downloadClass: 'badge badge-light',
         inlineControls: {
-            // loopToggle: true,
+            loopToggle: true,
         }
-    });
-
-    document.getElementById("{{ $src_id }}-paper").querySelectorAll(".abcjs-note,.abcjs-beam-elem,.abcjs-ending").forEach((el) => {
-        if (el.getAttribute("fill"))
-            el.setAttribute("fill", colorDefault);
     });
 </script>

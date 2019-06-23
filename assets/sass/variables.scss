@@ -27,8 +27,17 @@ $body-color: $gray-300;
 
 $link-color: map-get($theme-colors, "accent");
 
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto|Roboto+Mono');
-$font-family-sans-serif: {{ (.Param "font" | default "Raleway") }};
+{{ $sans_serif := .Site.Params.font.sans_serif | default "Raleway" }}
+{{ $monospace := .Site.Params.font.monospace | default "Roboto Mono" }}
+{{ $condensed := .Site.Params.font.condensed | default "Roboto Condensed" }}
+
+@import url('https://fonts.googleapis.com/css?family={{ replace $sans_serif " " "+" }}|{{ replace $monospace " " "+" }}|{{ replace $condensed " " "+" }}');
+
+$font-family-sans-serif: {{ $sans_serif }}, sans-serif;
+$font-family-monospace: {{ $monospace }}, monospace;
+$font-family-condensed: {{ $condensed }}, sans-serif;
+
+$font-family-fontawesome: {{ .Site.Params.font.fontawesome | default "FontAwesome" }};
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
