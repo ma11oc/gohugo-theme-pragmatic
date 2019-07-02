@@ -9,15 +9,15 @@
 
 <script type="text/javascript">
     function colorRange(range, color) {
-            if (range && range.elements) {
-                range.elements.forEach(function (set) {
-                    set.forEach(function (item) {
-                        item.setAttribute("fill", color);
-                        item.style.fill = color;
-                    });
+        if (range && range.elements) {
+            range.elements.forEach(function (set) {
+                set.forEach(function (item) {
+                    item.setAttribute("fill", color);
+                    item.style.fill = color;
                 });
-            }
-        };
+            });
+        }
+    };
 
     var src = document.getElementById('{{ $src_id }}');
     var dst = document.getElementById('{{ $src_id }}-paper');

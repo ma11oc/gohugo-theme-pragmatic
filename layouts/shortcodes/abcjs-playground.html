@@ -1,7 +1,8 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
-<div class="abc-warnings alert alert-danger" role="alert" id="warnings"></div>
+{{- $_hugo_config := `{ "version": 1 }` }}
+{{- $note_color_def := .Get "note_color_def" | default "white" }}
+{{- $note_color_sel := .Get "note_color_sel" | default "var(--accent)" -}}
 
-<textarea id="score" autocomplete="off" class="w-100" rows="15">
+<textarea id="score" class="abcjs-score" autocomplete="off" rows="15">
 X: 1
 T: Playground
 C: Author
@@ -9,19 +10,53 @@ M: 4/4
 L: 1/8
 Q: 1/8=116
 K: C
-|:[CEG]4[GBC]4|
+|:[CEG]4[FAC]2[GBD]2|[CEG]4|
 </textarea>
 
-<div id="paper"></div>
+<div class="abcjs-warnings alert alert-danger alert-dismissible fade hide">
+    <strong>Errors found!</strong>
+    <br/>
+    <span id="warnings"></span>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+
+<div class="abcjs-container" id="paper"></div>
 <div class="abcjs-midi">
     <div id="midi" class="abcjs-inline-midi"></div>
-    <div id="download" class="abcjs-download-midi"></div>
+    <div id="download"></div>
 </div>
-<script>
-    // var colorDefault  = "{{ .Site.Params.theme.colors.text | default "#fff"  }}"
-    // var colorSelected = "{{ .Site.Params.theme.colors.accent | default "#dc3545"  }}"
 
+<script>
     window.onload = function() {
+        function colorRange(range, color) {
+            if (range && range.elements) {
+                range.elements.forEach(function (set) {
+                    set.forEach(function (item) {
+                        item.setAttribute("fill", color);
+                        item.style.fill = color;
+                    });
+                });
+            }
+        };
+
+        function changeCallback(editorInstance) {
+            console.log(editorInstance);
+
+            warns = document.getElementById('.alert');
+            console.log(warns);
+
+            if (editorInstance.warnings.length) {
+                document.querySelector('.alert').classList.add('show');
+            } else {
+                document.querySelector('.alert').classList.remove('show');
+            }
+        };
+
+        var midiListener = function(prev, next) {
+            colorRange(next, "{{ $note_color_sel }}");
+            colorRange(prev, "{{ $note_color_def }}");
+        }
+
         var abcEditor = new ABCJS.Editor(
             "score",
             {
@@ -29,10 +64,12 @@ K: C
                 warnings_id: "warnings",
                 midi_id: "midi",
                 midi_download_id: "download",
+                onchange: changeCallback,
                 // gui: true,
                 generate_midi: true,
                 abcjsParams: {
                     add_classes: true,
+                    responsive: "resize",
                     generateInline: true,
                     generateDownload: true,
                     downloadLabel: '<i class="fa fa-download"></i>',
@@ -41,22 +78,12 @@ K: C
                         loopToggle: true,
                         tempo: true,
                     },
+                    animate: {
+                        listener: midiListener,
+                    },
+
                 },
             });
-
-        // abcEditor.setNotDirty();
-        // abcEditor.setReadOnly(false);
-        // abcEditor.pause(true);
-        // abcEditor.pauseMidi(false);
-
-        // document.getElementById('score').addEventListener('change', abcEditor.fireChanged());
-        // document.getElementById('score').addEventListener('keyup', abcEditor.fireChanged());
     }
 
 </script>
-
-<style>
-svg .abcjs-note,.abcjs-beam-elem,.abcjs-ending {
-    fill: #fff;
-}
-</style>
