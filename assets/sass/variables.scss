@@ -39,6 +39,6 @@ $font-family-condensed: {{ $condensed }}, sans-serif;
 
 $font-family-fontawesome: {{ .Site.Params.font.fontawesome | default "FontAwesome" }};
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "themes/pragmatic/node_modules/bootstrap/scss/bootstrap";
 
 $max-width: 1140px;

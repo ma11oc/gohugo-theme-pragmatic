@@ -42,7 +42,7 @@
 {{- $scratch := newScratch -}}
 {{- $scratch.Add "bundle" (slice (resources.Get "js/scrollspy.js")) }}
 {{- if .Site.Params.assets.abcjs.enabled | default false }}
-    {{- $scratch.Add "bundle" (slice (resources.Get "js/vendor/abcjs_midi_5.6.11-min.js")) }}
+    {{- $scratch.Add "bundle" (slice (resources.Get "js/abcjs_midi_5.6.5-min.js")) }}
 {{ end -}}
 
 {{- $bundle := $scratch.Get "bundle" | resources.Concat "js/bundle.js" }}
