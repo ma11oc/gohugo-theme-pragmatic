@@ -1,11 +1,12 @@
 {{- $_hugo_config := `{ "version": 1 }` -}}
 
-{{- $src_id := .Get "src_id" }}
+{{- $id := .Get "id" }}
 {{- $note_color_def := .Get "note_color_def" | default "white" }}
 {{- $note_color_sel := .Get "note_color_sel" | default "var(--accent)" }}
 
-<div class="paper" id="{{ $src_id }}-paper"></div>
-<div class="abcjs-midi" id="{{ $src_id }}-midi"></div>
+<div class="abc-score" id="{{ $id }}">{{ .Inner }}</div>
+<div class="paper" id="{{ $id }}-paper"></div>
+<div class="abcjs-midi" id="{{ $id }}-midi"></div>
 
 <script type="text/javascript">
     function colorRange(range, color) {
@@ -19,8 +20,8 @@
         }
     };
 
-    var src = document.getElementById('{{ $src_id }}');
-    var dst = document.getElementById('{{ $src_id }}-paper');
+    var src = document.getElementById('{{ $id }}');
+    var dst = document.getElementById('{{ $id }}-paper');
     var abc = src.innerHTML;
 
     var midiListener = function(prev, next) {
@@ -30,12 +31,12 @@
 
     src.style.display = "none";
 
-    tunes = ABCJS.renderAbc("{{ $src_id }}-paper", abc, {
+    tunes = ABCJS.renderAbc("{{ $id }}-paper", abc, {
         add_classes: true,
         responsive: "resize",
     });
 
-    ABCJS.renderMidi("{{ $src_id }}-midi", abc, {
+    ABCJS.renderMidi("{{ $id }}-midi", abc, {
         animate: {
             listener: midiListener,
             target: tunes[0],
