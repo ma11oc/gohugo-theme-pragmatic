@@ -1,0 +1,57 @@
+<div class="main-timeline">
+    {{ range .Paginator.Pages.ByDate.Reverse }}
+
+    {{ $image := (.Param "timeline.image" | default nil) }}
+    {{ $icon  := (.Param "timeline.icon" | default nil) }}
+    {{ $class := (.Param "timeline.class" | default nil) }}
+    {{ $desc  := (.Param "timeline.desc" | default nil) }}
+
+    <div class="event">
+
+        <div class="icon">
+            <strong><i class="fa fa-lg {{ if $icon }}{{ $icon }}{{ else }}fa-file-alt{{ end }}"></i></strong>
+        </div>
+        <div class="event-details">
+            <div class="event-date">
+                <span class="">{{.Date.Format "2006-01-02"}}</span>
+            </div>
+            <div class="event-metadata">
+                <div class="event-section">
+                    <a class="badge badge-accent" href="{{ $.Site.BaseURL }}{{ .Section | urlize }}/">{{ .Section }}</a>
+                </div>
+                <div class="event-tags">
+                    {{ if isset .Params "tags" }}
+                    {{ range .Params.tags }}
+                        <a class="badge badge-dark" href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/">{{ . }}</a>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="event-container">
+            <div class="event-content {{ if $class }}{{ $class }}{{ else }}event-content-accent{{ end }}">
+                <div class="event-title">
+                    <a href="{{ .Permalink }}">
+                        <h5 class="title">{{ .Title }}</h5>
+                    </a>
+                </div>
+                {{ if $image }}
+                <div class="event-image">
+                    <a href="{{ .Permalink }}">
+                        <img src="{{ $image }}" alt=""></img>
+                    </a>
+                </div>
+                {{ end }}
+                {{ if and (not $image) ($desc) }}
+                <div class="event-separator"><hr/></div>
+                {{ end }}
+                {{ with $desc }}
+                <div class="event-description">
+                    {{ . | safeHTML }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</div>

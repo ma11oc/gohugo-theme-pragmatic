@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ .Site.LanguageCode }}">
-    {{ hugo }}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
@@ -14,14 +13,15 @@
         {{ partial "css" . }}
         {{ partial "js" . }}
 
-        {{- with .OutputFormats.Get "RSS" }}
-            {{- .RelPermalink }}
-        {{- end }}
+        <!--
+           - {{- with .OutputFormats.Get "RSS" }}
+           -     {{- .RelPermalink }}
+           - {{- end }}
+           -->
 
     </head>
 
     <body>
-
         <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
             <header class="header w-100">
                 {{ block "header" . }}
@@ -30,20 +30,59 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse justify-content-center text-center w-50" id="nav-main">
+                    <div class="nav-brand justify-content-left">
+                        <ul class="nav navbar-nav">
+                            <li class="navbar-item m-1">
+                                <a class="nav-link" href="{{ .URL | absLangURL }}">
+                                    <i class="fas fa-chevron-right"></i>
+                                    {{ .Site.Title }}
+                                </a>
+                            </li>
+                        <ul>
+                    </div>
+
+                    <div class="collapse navbar-collapse justify-content-center" id="nav-main">
                         {{ if .Site.Menus.main }}
                         <ul class="nav navbar-nav">
                             {{ range sort .Site.Menus.main }}
-                            <li class="navbar-nav m-1">
-                                <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+                            <li class="navbar-item m-1">
+                                <a class="nav-link" href="{{ .URL | absLangURL }}">{{ .Name }}</a>
                             </li>
                             {{ end }}
                         </ul>
                         {{ end }}
+
+                        <div class="dropdown-divider"></div>
                     </div>
 
-                </nav>
+                    <div class="justify-content-right text-center">
+                    {{ if .Site.IsMultiLingual }}
+                        {{ $siteLanguages := .Site.Languages}}
+                        {{ $pageLang := .Page.Lang}}
+                        {{ range .Page.AllTranslations }}
+                            {{ $translation := .}}
+                            {{ range $siteLanguages }}
+                                {{ if eq $translation.Lang .Lang }}
+                                    {{ $selected := false }}
+                                    {{ if eq $pageLang .Lang}}
+                                        <!--a class="dropdown-item" href="{{ $translation.URL }}">{{ .LanguageName }}</a-->
+                                    {{ else }}
+                                        <ul class="nav navbar-nav">
+                                            <li class="navbar-nav m-1">
+                                                <a class="nav-link" href="{{ $translation.URL }}">{{ .LanguageName }}</a>
+                                            </li>
+                                        </ul>
+                                    {{ end }}
+                                {{ end }}
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                    </div>
+
                 {{ end }}
+
+                </nav>
+
             </header>
 
             <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">

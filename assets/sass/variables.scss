@@ -1,16 +1,25 @@
 {{ $scratch := newScratch }}
-{{ if .Site.Params.theme.colors }}
-  {{ $scratch.Set "colors" .Site.Params.theme.colors }}
-{{ end }}
 
 {{ $scratch.SetInMap "colors" "accent"  (.Param "theme.colors.accent"  | default "#dc3545") }}
 {{ $scratch.SetInMap "colors" "body-bg" (.Param "theme.colors.body-bg" | default "#2d2d2d") }}
+
+{{ $scratch.SetInMap "background" "path" (.Param "theme.background.path" | default "/image/chalkboard.jpg") }}
+{{ $scratch.SetInMap "background" "opacity" (.Param "theme.background.opacity" | default "10%") }}
 
 $theme-colors: (
   {{ range $key, $value := $scratch.Get "colors" }}
     {{ $key }}: {{ $value }},
   {{ end }}
 );
+
+$theme-background: (
+  {{ range $key, $value := $scratch.Get "background" }}
+    {{ $key }}: "{{ $value }}",
+  {{ end }}
+);
+
+$theme-bg-path: map-get($theme-background, "path");
+$theme-bg-opacity: unquote(map-get($theme-background, "opacity"));
 
 $gray-100: #f8f9fa !default;
 $gray-200: #eee !default;

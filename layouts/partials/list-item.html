@@ -1,15 +1,18 @@
-
 {{ $.Scratch.Set "link" .RelPermalink }}
 {{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") | $.Scratch.Set "subtitle" }}
 {{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
 
 <div class="item d-flex flex-column w-100 mt-4">
     <h2><a href="{{ .Scratch.Get "link" }}">{{ .Title }}</a></h5>
-    <span class="text-muted w-30">
-        <strong class="text-muted">Published:</strong> {{ dateFormat "January 2, 2006" .PublishDate }}
-        &nbsp; | &nbsp;
-        <strong class="text-muted">Modified:</strong> {{ dateFormat "January 2, 2006" .Lastmod }}
-    </span>
+    <div class="row justify-content-center">
+        <span class="text-muted">
+            <b class="text-muted">{{ i18n "published" }}:</b> {{ dateFormat "January 2, 2006" .PublishDate }}
+        </span>
+        <div class="text-muted">&nbsp; | &nbsp;</div>
+        <span class="text-muted">
+            <b class="text-muted">{{ i18n "updated" }}:</b> {{ dateFormat "January 2, 2006" .Lastmod }}
+        </span>
+    </div>
 
 
     <div class="tags mt-2">
