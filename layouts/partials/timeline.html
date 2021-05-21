@@ -1,0 +1,165 @@
+
+<div class="intro">
+    <!-- <img src="/images/chalkboard.jpg" alt=""> -->
+    <div class="main-timeline">
+        <!-- example -->
+        <div class="event">
+            <div class="icon"><i class="fa fa-lg fa-code"></i></div>
+            <div class="event-details">
+                <div class="event-date">
+                    <span class="">2006-01-02</span>
+                </div>
+                <div class="event-metadata">
+                    <div class="event-section">
+                        <a class="badge badge-accent" href="#">lifestyle</a>
+                    </div>
+                    <div class="event-tags">
+                        <a class="badge badge-dark" href="#">consectetur</a>
+                        <a class="badge badge-dark" href="#">adipiscing</a>
+                        <a class="badge badge-dark" href="#">elit</a>
+                        <a class="badge badge-dark" href="#">sed</a>
+                        <a class="badge badge-dark" href="#">efficitur</a>
+                    </div>
+                </div>
+            </div>
+            <div class="event-container">
+                <div class="event-content event-content-light">
+                    <div class="event-title">
+                        <a href="{{.Permalink}}">
+                            <h5 class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
+                        </a>
+                    </div>
+                    <div class="event-image">
+                        <img src="/images/D50D235E-A376-462B-80FA-3A0FCFF78E7E_1_105_c.jpeg" alt=""></img>
+                    </div>
+                    <div class="event-description">
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /example -->
+
+        <!-- example -->
+        <div class="event">
+            <div class="icon"><i class="fa fa-lg fa-code"></i></div>
+            <div class="event-details">
+                <div class="event-date">
+                    <span class="">2006-01-02</span>
+                </div>
+                <div class="event-metadata">
+                    <div class="event-section">
+                        <a class="badge badge-accent" href="#">lifestyle</a>
+                    </div>
+                    <div class="event-tags">
+                        <a class="badge badge-dark" href="#">consectetur</a>
+                        <a class="badge badge-dark" href="#">adipiscing</a>
+                        <a class="badge badge-dark" href="#">elit</a>
+                        <a class="badge badge-dark" href="#">sed</a>
+                        <a class="badge badge-dark" href="#">efficitur</a>
+                    </div>
+                </div>
+            </div>
+            <div class="event-container">
+                <div class="event-content event-content-warning">
+                    <div class="event-title">
+                        <a href="{{.Permalink}}">
+                            <h5 class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
+                        </a>
+                    </div>
+                    <div class="event-image">
+                        <img src="/images/6DFF7344-552C-41DD-94B5-B708A310233B_1_105_c.jpeg" alt=""></img>
+                    </div>
+                    <div class="event-description">
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /example -->
+
+
+        <!-- example -->
+        <div class="event">
+            <div class="icon"><i class="fa fa-lg fa-code"></i></div>
+            <div class="event-details">
+                <div class="event-date">
+                    <span class="">2006-01-02</span>
+                </div>
+                <div class="event-metadata">
+                    <div class="event-section">
+                        <a class="badge badge-accent" href="#">lifestyle</a>
+                    </div>
+                    <div class="event-tags">
+                        <a class="badge badge-dark" href="#">consectetur</a>
+                        <a class="badge badge-dark" href="#">adipiscing</a>
+                        <a class="badge badge-dark" href="#">elit</a>
+                        <a class="badge badge-dark" href="#">sed</a>
+                        <a class="badge badge-dark" href="#">efficitur</a>
+                    </div>
+                </div>
+            </div>
+            <div class="event-container">
+                <div class="event-content event-content-light">
+                    <div class="event-title">
+                        <a href="{{.Permalink}}">
+                            <h5 class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
+                        </a>
+                    </div>
+                    <div class="event-image">
+                        <img src="/images/BA5D1855-7742-48A9-A249-38F937BC9826_1_105_c.jpeg" alt=""></img>
+                    </div>
+                    <div class="event-description">
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /example -->
+
+        {{ range last 5 .Paginator.Pages.ByDate.Reverse }}
+        <div class="event">
+            <div class="icon"><i class="fa fa-lg fa-camera"></i></div>
+            <div class="event-details">
+                <div class="event-date">
+                    <span class="">{{.Date.Format "2006-01-02"}}</span>
+                </div>
+                <div class="event-metadata">
+                    <div class="event-section">
+                        <a class="badge badge-accent" href="{{ $.Site.BaseURL }}{{ .Section | urlize }}/">{{ .Section }}</a>
+                    </div>
+                    <div class="event-tags">
+                        {{ range .Params.tags }}
+                            <a class="badge badge-dark" href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/">{{ . }}</a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            <div class="event-container">
+                <div class="event-content event-content-danger">
+                    <div class="event-title">
+                        <a href="{{.Permalink}}">
+                            <h5 class="title">{{ .Title }}</h5>
+                        </a>
+                    </div>
+                    <div class="event-separator"><hr/></div>
+                    <div class="event-description">
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex sit amet massa scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus efficitur. Praesent dapibus dolor felis, eu ultrices elit molestie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+</div>
