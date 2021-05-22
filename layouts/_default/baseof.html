@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ .Site.LanguageCode }}">
-    {{ hugo }}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
@@ -14,14 +13,15 @@
         {{ partial "css" . }}
         {{ partial "js" . }}
 
-        {{- with .OutputFormats.Get "RSS" }}
-            {{- .RelPermalink }}
-        {{- end }}
+        <!--
+           - {{- with .OutputFormats.Get "RSS" }}
+           -     {{- .RelPermalink }}
+           - {{- end }}
+           -->
 
     </head>
 
     <body>
-
         <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
             <header class="header w-100">
                 {{ block "header" . }}

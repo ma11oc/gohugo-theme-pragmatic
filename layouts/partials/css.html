@@ -8,7 +8,7 @@
 {{- $scratch.Add "bundle" (slice $vars) }}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) -}}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/scrollspy.scss")) -}}
-<!-- {{- $scratch.Add "bundle" (slice (resources.Get "sass/timeline.scss")) -}} -->
+{{- $scratch.Add "bundle" (slice (resources.Get "sass/timeline.scss")) -}}
 
 <!-- abcjs -->
 {{- if .Site.Params.assets.abcjs.enabled | default false }}

@@ -210,34 +210,10 @@ footer {
 }
 
 /*****************************************************************************
- * HOME
+ * CAROUSEL
  *****************************************************************************
  */
 .intro {
-
-  &:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 3%;
-    background-attachment: fixed;
-    background-image: url("/images/chalkboard.jpg");
-    background-position: center center;
-    background-size: cover;
-  }
-
-  > img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    filter: opacity(15%);
-    position: absolute;
-    object-fit: cover;
-  }
 
   .carousel-caption {
     left: 0;
@@ -273,6 +249,28 @@ footer {
  * CONTENT
  *****************************************************************************
  */
+
+.main {
+  width: 100%;
+
+  &:before {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    opacity: $theme-bg-opacity;
+    background-attachment: fixed;
+    background-image: url($theme-bg-path);
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+  }
+
+}
 
 .container {
   max-width: $max-width;
@@ -351,338 +349,4 @@ footer {
     min-width: 768px;
     max-width: $max-width;
   }
-}
-
-
-/*****************************************************************************
- * TIMELINE
- *****************************************************************************
- */
-
-@mixin event-content-variant($background, $border, $color) {
-  color: $color;
-  background-color: $background;
-  border-color: $border;
-
-  hr {
-    border-top-color: darken($border, 5%);
-  }
-
-  .alert-link {
-    color: darken($color, 10%);
-  }
-
-}
-
-// Generate `.event-content-*` color utilities
-@each $color, $value in $theme-colors {
-  .event-content-#{$color} {
-    @include event-content-variant(rgba($value, 0.10), rgba($value, 0.15), theme-color-level($color, -5));
-
-    @include headings {
-      color: theme-color-level($color, -5);
-    }
-
-    .event-link {
-      color: lighten($value, 25%);
-    }
-
-    &:before,&:after {
-      border-top: 0.1rem solid rgba($value, 0.20) !important;
-      border-right: 0.1rem solid rgba($value, 0.20) !important;
-      background: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(theme-color-level($color, 7), 0.5) 50% 56%, rgba($value, 0.1) 56% 100%) !important;
-    }
-
-  }
-}
-
-.main-timeline {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  position: relative;
-
-  &:before {
-    content: "";
-    display: flex;
-    width: 0.2rem;
-    height: 100%;
-    background: rgba(theme-color("accent"), 0.35);
-    margin: 0 auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .event  {
-    display: flex;
-    flex-direction: row;
-
-    margin-bottom: 2rem;
-    // position: relative;
-    width: 100%;
-    height: 100%;
-
-    /*
-     * &:after {
-     *   content: "";
-     *   display: block;
-     *   clear: both;
-     * }
-     */
-
-    &:nth-child(2n) {
-      flex-direction: row-reverse;
-
-      .event-details {
-        float: right;
-        position: relative;
-        right: 0;
-        text-align: left;
-      }
-
-      .event-date {
-        flex-direction: row !important;
-      }
-
-      .event-metadata {
-        flex-direction: row !important;
-
-        .event-section {
-          margin-right: 0.5rem;
-        }
-      }
-
-      .event-container {
-        float: left;
-        left: 0;
-
-        .event-content {
-          padding: 0;
-
-          /* corner */
-          &:before {
-            display: none;
-          }
-
-          &:after {
-            display: block;
-            float: right;
-            transform: rotate(45deg);
-            right: 2.5rem;
-          }
-
-          .event-title {
-            margin: 1rem;
-          }
-
-        }
-      }
-    }
-
-    .event-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      width: 30%;
-      padding: 0 3rem;
-
-      .event-content {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1.5rem;
-        padding: 0;
-        border-style: solid;
-        border-width: 0.1rem;
-        border-radius: 0.25rem;
-
-        /* event-content corner */
-        &:before,&:after {
-          content: "";
-          position: absolute;
-          width: 1rem;
-          height: 1rem;
-          top: 3rem;
-          border-top: 0.1rem solid rgba(theme-color("accent"), 0.25);
-          border-right: 0.1rem solid rgba(theme-color("accent"), 0.25);
-          background: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(theme-color("accent"), 0.2) 50% 55%, rgba(theme-color("accent"), 0.15) 55%, rgba(theme-color("accent"), 0.15) 100%);
-        }
-
-        &:before {
-          display: block;
-          transform: rotate(-135deg);
-          left: 2.5rem;
-        }
-
-        &:after {
-          display: none;
-        }
-
-        &:hover {
-          .event-image {
-            z-index: 0;
-          }
-        }
-
-        .event-title {
-          display: block;
-          position: relative;
-          margin: 1rem;
-
-          h5 {
-            margin-bottom: 0;
-          }
-        }
-
-        .event-separator {
-          hr {
-            margin: 0;
-          }
-        }
-
-        .event-image {
-          display: block;
-          // flex-direction: row;
-          position: relative;
-          height: 100%;
-          width: 100%;
-          z-index: -1;
-
-          img {
-            max-height: 100%;
-            max-width: 100%;
-          }
-        }
-
-        .event-description {
-          display: block;
-          padding: 1rem;
-        }
-
-      }
-    }
-
-    .event-details {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      width: 50%;
-
-      .event-date {
-        font-size: 2rem;
-        display: flex;
-        flex-direction: row-reverse;
-        height: 2rem;
-        margin-bottom: 1rem;
-        padding: 0.6rem;
-        position: relative;
-        width: 100%;
-
-        span {
-          border-bottom: 0.2rem solid rgba(theme-color("accent"), 0.5) !important;
-          height: 3rem;
-          padding: 0 2rem;
-          // left: -1rem;
-          z-index: -1;
-        }
-
-        /*
-         * &:after {
-         *   content: "";
-         *   display: block;
-         *   position: absolute;
-         *   width: 50%;
-         *   height: 0.2rem;
-         *   // top: 0;
-         *   bottom: -1.7rem;
-         *   left: 0;
-         *   float: left;
-         *   z-index: -1;
-         *   background: rgba(theme-color("accent"), 0.5);
-         *   // border-bottom: 0.2rem solid theme-color("accent");
-         * }
-         */
-
-      }
-
-      .event-metadata {
-        display: flex;
-        flex-direction: row-reverse;
-        padding: 1rem 2rem;
-
-        /*
-         * &:before {
-         *   content: "";
-         *   width: 100%;
-         *   height: 0.3rem;
-         *   position: static;
-         *   top: -2px;
-         *   display: block;
-         *   background: rgba(theme-color("accent"), 0.50);
-         * }
-         */
-
-        .event-tags {
-          display: block;
-          position: relative;
-        }
-
-        .event-section {
-          display: block;
-          position: relative;
-          margin-left: 0.5rem;
-        }
-      }
-
-    }
-
-    .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 3rem;
-      height: 3rem;
-      // line-height: 2rem;
-      margin: auto;
-      margin-top: 2rem;
-      position: absolute;
-      // top: 0;
-      left: 0;
-      // bottom: 0;
-      right: 0;
-      background: theme-color("dark");
-      border-radius: 50%;
-
-      &:before,&:after {
-        content: "";
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        // top: 0;
-        // left: 0;
-        transition: all 0.33s ease-out 1s;
-        background: rgba(theme-color("accent"), 0.15);
-        border: 0.2rem solid rgba(theme-color("accent"), 0.15);
-      }
-
-      i:hover {
-        // content: "";
-        // width: 100%;
-        // height: 100%;
-        // border-radius: 50%;
-        position: absolute;
-        // top: 0;
-        // left: 0;
-        transition: all 0.33s ease-out 1s !important;
-        // background: rgba(theme-color("accent"), 0.15);
-        // border: 0.2rem solid rgba(theme-color("accent"), 0.15);
-      }
-
-    }
-  }
-
 }
