@@ -1,4 +1,4 @@
-        <script src="{{ .Site.Params.assets.jquery.src | default "https://code.jquery.com/jquery-3.4.1.min.js" }}" integrity="{{ .Site.Params.assets.jquery.integrity | default "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" }}" crossorigin="anonymous"></script>
+        <script src="{{ .Site.Params.assets.jquery.src | default "https://code.jquery.com/jquery-3.6.0.min.js" }}" integrity="{{ .Site.Params.assets.jquery.integrity | default "sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" }}" crossorigin="anonymous"></script>
         <script src="{{ .Site.Params.assets.bootstrap.js.src | default "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" }}" integrity="{{ .Site.Params.assets.bootstrap.js.src | default "sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"}}" crossorigin="anonymous"></script>
 
 <!-- MathJax support -->
@@ -41,8 +41,9 @@
 
 {{- $scratch := newScratch -}}
 {{- $scratch.Add "bundle" (slice (resources.Get "js/scrollspy.js")) }}
+{{- $scratch.Add "bundle" (slice (resources.Get "js/filter.js")) }}
 {{- if .Site.Params.assets.abcjs.enabled | default false }}
-    {{- $scratch.Add "bundle" (slice (resources.Get "js/abcjs_midi_5.6.5-min.js")) }}
+    {{- $scratch.Add "bundle" (slice (resources.Get "js/vendor/abcjs_midi_5.6.11-min.js")) }}
 {{ end -}}
 
 {{- $bundle := $scratch.Get "bundle" | resources.Concat "js/bundle.js" }}

@@ -1,0 +1,11 @@
+{{- define "response" -}}
+  [
+  {{- range $index, $e := .Data.Terms.ByCount -}}
+  {{- if $index }}, {{ end }}
+    {
+        "name":"{{ .Name }}",
+        "count": {{ .Count }}
+    }
+  {{- end }}
+  ]
+{{- end -}}

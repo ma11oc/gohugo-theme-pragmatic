@@ -6,41 +6,22 @@
 
         <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
 
-        {{- if .Site.Params.favicon | default false -}}
-            {{- partial "favicon"}}
-        {{ end }}
-
         {{ partial "css" . }}
         {{ partial "js" . }}
-
-        <!--
-           - {{- with .OutputFormats.Get "RSS" }}
-           -     {{- .RelPermalink }}
-           - {{- end }}
-           -->
 
     </head>
 
     <body>
         <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
-            <header class="header w-100">
-                {{ block "header" . }}
-                {{ end }}
-
-                </nav>
-
-            </header>
 
             <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">
+                <button type="button" class="btn btn-dark btn-gallery-back" onclick="window.history.back()">
+                    <i class="fa fa-undo"></i>
+                </button>
                 {{ block "main" . }}
                 {{ end }}
             </main>
 
-            <footer class="footer d-none d-sm-block w-100 mx-auto">
-                {{ block "footer" . }}
-                {{ end }}
-            </footer>
         </div>
-
     </body>
 </html>

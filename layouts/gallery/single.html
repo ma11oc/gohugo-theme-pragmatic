@@ -1,0 +1,42 @@
+{{ define "main" }}
+{{ $gallery := (.Param "gallery" | default nil) }}
+{{ $interval := (index $gallery "interval" | default nil) }}
+{{ $images := (index $gallery "images" | default nil) }}
+<div class="intro d-flex flex-nowrap flex-grow-1 h-100 w-100">
+    {{ if gt (len $images) 0 }}
+    <div id="carouselIndicators" class="carousel slide carousel-fade d-flex flex-grow-1" data-ride="carousel" data-interval="{{ if $interval }}{{ $interval }}{{ else }}5000{{ end }}">
+        <ol class="carousel-indicators">
+            {{ range $index, $item := $images }}
+            <li data-target="#carouselIndicators" data-slide-to="$index" class="{{ if eq $index 0 }}active{{ end }}"></li>
+            {{ end }}
+        </ol>
+
+        <div class="carousel-inner d-flex flex-grow-1 text-center">
+            {{ range $index, $item := $images }}
+            <div class="carousel-item {{ if eq $index 0 }}active{{ end }}" style="background-image:url('{{ index $item "path" }}');">
+                <!-- <img src="{{ index $item "path" }}" class="d-block w-100 img-fluid" alt=""> -->
+                <div class="carousel-caption">
+                    <div class="carousel-title">
+                        <h1>{{ index $item "name" }}</h1>
+                    </div>
+                    <div class="carousel-description">
+                        <p>{{ index $item "desc" }}</p>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+
+        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+            <i class="arrow-left fa fa-chevron-left" aria-hidden="true"></i>
+            <i class="sr-only">Previous</i>
+        </a>
+
+        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+            <i class="arrow-right fa fa-chevron-right" aria-hidden="true"></i>
+            <i class="sr-only">Next</i>
+        </a>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

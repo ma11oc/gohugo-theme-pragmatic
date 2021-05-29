@@ -34,9 +34,13 @@
                     <span class="badge badge-success p-2">{{ .Params.license }}</span>
                     {{ end }}
                 {{ end }}
+                {{ range .Params.categories }}
+                    <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}" class="badge badge-accent p-2">{{ . }}</a>
+                {{ end }}
                 {{ range .Params.tags }}
                     <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}" class="badge badge-dark p-2">{{ . }}</a>
                 {{ end }}
+
             </div>
 
             <div class="content flex-column mt-4">
@@ -91,5 +95,4 @@
             </div>
         </div>
     {{ end }}
-
 {{ end }}

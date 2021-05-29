@@ -1,3 +1,89 @@
-{{- define "main" }}
-    {{ partial "timeline" . }}
-{{- end -}}
+<!doctype html>
+<html lang="{{ .Site.LanguageCode }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+        <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
+
+        {{- if .Site.Params.favicon | default false -}}
+            {{- partial "favicon"}}
+        {{ end }}
+
+        {{ partial "css" . }}
+        {{ partial "js" . }}
+
+        <!--
+           - {{- with .OutputFormats.Get "RSS" }}
+           -     {{- .RelPermalink }}
+           - {{- end }}
+           -->
+
+    </head>
+
+    <body>
+        <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
+            <header class="header w-100">
+                {{ block "header" . }}
+                {{ end }}
+                </nav>
+
+            </header>
+
+            <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">
+                {{ partial "timeline" . }}
+            </main>
+
+            <!-- footer -->
+            <footer class="footer d-none d-sm-block w-100 mx-auto">
+                {{ block "footer" . }}
+                {{ end }}
+            </footer>
+            <!-- /footer -->
+
+            <div class="btn-filter">
+                <button type="button" class="btn" data-toggle="modal" data-target="#filterModal">
+                    <i class="fa fa-filter fa-lg"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- filterModal -->
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="filterModalLabel">Filter Timeline</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    {{ range $term, $taxonomy := .Site.Taxonomies }}
+                        {{ with $.Site.GetPage (printf "/%s" $term) }}
+                        <div class="terms">
+                            <h4>{{ $term | title }}</h4>
+                            <p>
+                            {{ range $key, $value := $taxonomy }}
+                            <a href="#" class="badge badge-group-{{ if eq $term "categories" }}accent{{ else }}dark{{end}} p-2">
+                                <span class="term-link" data-term="{{ $term }}">{{ $key }}</span>
+                                <span class="term-count"><b>{{ $value.Count }}</b></span>
+                            </a>
+                            {{ end }}
+                            </p>
+                        {{ end }}
+                        </div>
+                    {{ end }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-accent" data-term="*">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /filterModal -->
+
+    </body>
+</html>

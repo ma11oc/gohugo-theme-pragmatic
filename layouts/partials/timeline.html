@@ -9,23 +9,30 @@
     <div class="event">
 
         <div class="icon">
-            <strong><i class="fa fa-lg {{ if $icon }}{{ $icon }}{{ else }}fa-file-alt{{ end }}"></i></strong>
+            <i class="fa fa-lg {{ if $icon }}{{ $icon }}{{ else }}fa-file-alt{{ end }}"></i>
         </div>
         <div class="event-details">
             <div class="event-date">
-                <span class="">{{.Date.Format "2006-01-02"}}</span>
+                <span class="">{{.PublishDate.Format "2006-01-02"}}</span>
             </div>
             <div class="event-metadata">
-                <div class="event-section">
-                    <a class="badge badge-accent" href="{{ $.Site.BaseURL }}{{ .Section | urlize }}/">{{ .Section }}</a>
+                <div class="event-last-modified">
+                    <span class="text-muted"><b>{{ .Lastmod.Format "2006-01-02T15:04:05" }}</b></span>
                 </div>
+                {{ if isset .Params "categories" }}
+                <div class="event-categories">
+                    {{ range .Params.categories }}
+                        <a class="badge badge-accent" href="{{ $.Site.BaseURL }}{{ . | urlize }}/">{{ . }}</a>
+                    {{ end }}
+                </div>
+                {{ end }}
+                {{ if isset .Params "tags" }}
                 <div class="event-tags">
-                    {{ if isset .Params "tags" }}
                     {{ range .Params.tags }}
                         <a class="badge badge-dark" href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/">{{ . }}</a>
                     {{ end }}
-                    {{ end }}
                 </div>
+                {{ end }}
             </div>
         </div>
         <div class="event-container">
@@ -47,7 +54,7 @@
                 {{ end }}
                 {{ with $desc }}
                 <div class="event-description">
-                    {{ . | safeHTML }}
+                    {{ . | markdownify | safeHTML }}
                 </div>
                 {{ end }}
             </div>

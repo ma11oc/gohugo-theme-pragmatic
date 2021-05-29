@@ -1,0 +1,8 @@
+{
+  "data": [
+{{ range $i, $e := (where .Site.Pages "Kind" "page") }}
+  {{- if $i }}, {{ end }}
+{{ partial "list-item.json" . }}
+  {{ end }}
+  ]
+}

@@ -43,7 +43,7 @@
 
 // Generate `.badge-*` color utilities
 @each $color, $value in $theme-colors {
-  .badge-#{$color} {
+  .badge-#{$color},.badge-group-#{$color} {
     @include badge-variant(rgba($value, 0.10));
 
     font-family: $font-family-monospace;
@@ -58,9 +58,31 @@
       background-color: rgba($value, 0.25) !important;
     }
   }
+
+  .badge-group-#{$color} {
+    padding: 0 !important;
+  }
+
+  .badge-group-#{$color} > * {
+    border-left: 1px solid rgba($value, 0.25);
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 0.5rem;
+    padding-right: 0;
+    vertical-align: center !important;
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      padding-right: 0.5rem;
+    }
+  }
 }
 
-.badge-dark {
+.badge-dark,.badge-group-dark {
   @include badge-variant(rgba($black, 0.25));
 
   color: theme-color-level("dark", -5);
@@ -70,6 +92,14 @@
     transition: color .5s, background-color .5s;
     color: theme-color-level("dark", -7) !important;
     background-color: rgba($black, 0.15) !important;
+  }
+}
+
+.badge-group-dark > * {
+  border-left: 1px solid rgba($white, 0.15) !important;
+
+  &:first-child {
+    border-left: none !important;
   }
 }
 
@@ -162,17 +192,58 @@ header {
     }
   }
 
-  navbar-nav a {
-    &:hover {
-      color: theme-color("accent") !important;
-    }
-
-    // TODO: active state
-    &:active {
-      color: black !important;
+  .nav-lang {
+    @include media-breakpoint-down(sm) {
+      flex-direction: row !important;
     }
   }
+
+  /*
+   * .nav-brand {
+   *   @include media-breakpoint-down(sm) {
+   *     display: none;
+   *   }
+   * }
+   */
+
+  .navbar-nav {
+
+    .nav-item {
+
+      .nav-link {
+        a {
+          &:hover {
+            color: theme-color("accent") !important;
+          }
+
+          &:active {
+            color: black !important;
+          }
+
+        }
+      }
+
+      .dropdown-menu {
+        background-color: rgba(theme-color("body-bg"), 0.90) !important;
+        border: 0.1rem solid rgba(theme-color("accent"), 0.15);
+
+        .dropdown-item {
+          &:hover {
+            background-color: rgba($black, 0) !important;
+          }
+        }
+
+        @include media-breakpoint-down(sm) {
+          background-color: rgba(theme-color("body-bg"), 0.15) !important;
+        }
+
+      }
+
+    }
+  }
+
 }
+
 
 .content {
   hr {
@@ -214,14 +285,27 @@ footer {
  *****************************************************************************
  */
 .intro {
+  .carousel {
 
-  .carousel-caption {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    position: absolute;
-    background-color: rgba($black, 0.15);
+    .carousel-inner {
+
+      .carousel-item {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+
+        .carousel-caption {
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          position: absolute;
+          background-color: rgba($black, 0.5);
+        }
+
+      }
+    }
   }
+
 
   .arrow-left, .arrow-right {
     color: rgba(theme-color("accent"), 0.5) !important;
@@ -348,5 +432,88 @@ footer {
   .container {
     min-width: 768px;
     max-width: $max-width;
+  }
+}
+
+
+/*****************************************************************************
+ * GALLERY
+ *****************************************************************************
+ */
+
+main {
+  .btn-gallery-back {
+    position: fixed;
+    width: auto;
+    height: auto;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    opacity: 25%;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      opacity: 75%;
+      transition: all 0.5s ease-out;
+    }
+  }
+}
+
+@include media-breakpoint-between(sm,md) {
+  .carousel {
+
+    .carousel-inner {
+
+      .carousel-item {
+
+        .carousel-caption {
+          display: flex;
+          flex-direction: column;
+          bottom: 0;
+          right: 0;
+
+          // width: 50% !important;
+          height: auto;
+          max-height: 40%;
+
+          // margin: 1rem 0 1rem auto;
+          padding: 0.5rem;
+
+          position: absolute;
+
+          background-color: rgba($black, 0.15) !important;
+
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          // text-align: left;
+
+          .carousel-title {
+            display: flex;
+            width: 100%;
+            text-align: left;
+
+            h1 {
+              font-size: 1.2rem;
+            }
+          }
+
+          .carousel-description {
+            display: flex;
+            width: 100%;
+            height: auto;
+
+            text-align: left;
+
+            p {
+              font-size: 0.8rem;
+            }
+          }
+
+        }
+
+      }
+    }
   }
 }
