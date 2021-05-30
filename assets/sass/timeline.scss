@@ -90,7 +90,7 @@
         flex-direction: column;
         align-items: flex-start !important;
 
-        .event-last-modified,.event-categories,.event-tags {
+        .event-last-modified,.event-categories,.event-tags,.event-translations {
           &:before {
             display: inline-block !important;
           }
@@ -202,6 +202,7 @@
           img {
             max-height: 100%;
             max-width: 100%;
+            width: 100%;
           }
         }
 
@@ -308,6 +309,24 @@
           &:before,&:after {
             font-family: "Font Awesome 5 Free";
             content: "\f0e8";
+            display: inline-block;
+            margin: 0 0.2rem;
+            text-align: center;
+            font-weight: 900;
+            width: 2rem;
+            height: 1rem;
+            color: theme-color("secondary");
+          }
+
+          &:before {
+            display: none;
+          }
+        }
+
+        .event-translations  {
+          &:before,&:after {
+            font-family: "Font Awesome 5 Free";
+            content: "\f1ab";
             display: inline-block;
             margin: 0 0.2rem;
             text-align: center;
@@ -438,7 +457,7 @@
           margin: 0 0.5rem 0 1rem;
           padding: 1rem 0 0 0;
 
-          .event-tags,.event-categories,.event-last-modified {
+          .event-tags,.event-categories,.event-last-modified,.event-translations {
             text-align: left !important;
 
             &:before {

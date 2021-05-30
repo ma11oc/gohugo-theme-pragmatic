@@ -2,6 +2,7 @@ function render_event(e) {
   // let date = new Date(e.date);
   let categories = "";
   let tags = "";
+  let translations = "";
   let permalink = e.permalink || '#';
   let title = e.title;
   let image = "";
@@ -19,6 +20,10 @@ function render_event(e) {
     tags += `<a class="badge badge-dark" href="${location.origin}/tags/${tag}/">${tag}</a>\n`;
   });
 
+  e.translations.forEach((translation) => {
+    translations += `<a class="badge badge-info" href="${translation.permalink}">${translation.lang}</a>\n`;
+  });
+
   let template = `
     <div class="event">
         <div class="icon">
@@ -34,6 +39,7 @@ function render_event(e) {
                 </div>
                 ${ categories ? '<div class="event-categories">' + categories + '</div>' : ''}
                 ${ tags ? '<div class="event-tags">' + tags + '</div>' : '' }
+                ${ translations ? '<div class="event-translations">' + translations + '</div>' : '' }
             </div>
         </div>
         <div class="event-container">

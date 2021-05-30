@@ -22,7 +22,7 @@
                 {{ if isset .Params "categories" }}
                 <div class="event-categories">
                     {{ range .Params.categories }}
-                        <a class="badge badge-accent" href="{{ $.Site.BaseURL }}{{ . | urlize }}/">{{ . }}</a>
+                        <a class="badge badge-accent" href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/">{{ . }}</a>
                     {{ end }}
                 </div>
                 {{ end }}
@@ -30,6 +30,15 @@
                 <div class="event-tags">
                     {{ range .Params.tags }}
                         <a class="badge badge-dark" href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/">{{ . }}</a>
+                    {{ end }}
+                </div>
+                {{ end }}
+                {{ if .IsTranslated }}
+                <div class="event-translations">
+                    {{ range .Translations }}
+                        <a class="badge badge-info" href="{{ .Permalink }}">
+                            {{ .Lang | upper }}
+                        </a>
                     {{ end }}
                 </div>
                 {{ end }}
