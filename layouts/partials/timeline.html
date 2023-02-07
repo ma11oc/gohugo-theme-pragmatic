@@ -4,7 +4,7 @@
     {{ $image := (.Param "timeline.image" | default nil) }}
     {{ $icon  := (.Param "timeline.icon" | default nil) }}
     {{ $class := (.Param "timeline.class" | default nil) }}
-    {{ $desc  := (.Param "timeline.desc" | default nil) }}
+    {{ $desc  := (.Param "timeline.desc" | default .Params.Summary) }}
 
     <div class="event">
 

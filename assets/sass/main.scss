@@ -154,6 +154,7 @@ code {
   margin: 0.2rem;
   border-radius: .2rem;
   background-color: rgba($gray-900, 0.7);
+
 }
 
 /*****************************************************************************
@@ -182,6 +183,11 @@ header {
 
   .navbar {
     max-width: $max-width;
+    justify-content: stretch;
+
+    @include media-breakpoint-down(sm) {
+      justify-content: flex-start;
+    }
 
     a {
       color: $gray-200;
@@ -192,16 +198,25 @@ header {
     }
   }
 
+  .nav-main {
+    justify-content: stretch;
+  }
+
   .nav-lang {
     @include media-breakpoint-down(sm) {
       flex-direction: row !important;
     }
   }
 
+  .dropdown-devider {
+    display: none;
+  }
+
   /*
    * .nav-brand {
    *   @include media-breakpoint-down(sm) {
-   *     display: none;
+   *     // margin-left: 0.5rem;
+   *     // margin-right: 0.5rem;
    *   }
    * }
    */
@@ -405,15 +420,18 @@ footer {
  */
 
 .highlight {
+  @include media-breakpoint-down(sm) {
+    padding: 0;
+  }
 
   max-width: 90vw;
-  padding: 1rem;
 
   pre {
     padding: 1rem;
     border-radius: .3rem;
     border: 1px solid rgba(theme-color("accent"), 0.15);
     background-color: rgba(theme-color-level("accent", 12), 0.25) !important;
+
   }
 
   code {

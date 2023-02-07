@@ -2,22 +2,41 @@
 {{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") | $.Scratch.Set "subtitle" }}
 {{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
 
-<div class="item d-flex flex-column w-100 mt-4">
-    <h2><a href="{{ .Scratch.Get "link" }}">{{ .Title }}</a></h5>
-    <div class="row justify-content-center">
-        <span class="text-muted">
-            <b class="text-muted">{{ i18n "published" }}:</b> {{ dateFormat "January 2, 2006" .PublishDate }}
+<div class="card bg-secondary mb-3">
+    <!--img src="{{ .Params.timeline.image }}" class="card-img-top" alt="..."-->
+    <div class="card-header">
+        <h2 class="card-title"><a href="{{ .Scratch.Get "link" }}">{{ .Title }}</a></h2>
+        <span class="badge badge-secondary p-2 mr-1 d-none d-md-inline-flex">
+            <b>{{ i18n "published" }}:</b> {{ dateFormat "January 2, 2006" .PublishDate }}
         </span>
-        <div class="text-muted">&nbsp; | &nbsp;</div>
-        <span class="text-muted">
-            <b class="text-muted">{{ i18n "updated" }}:</b> {{ dateFormat "January 2, 2006" .Lastmod }}
+        <span class="badge badge-secondary p-2 m-1">
+            <b>{{ i18n "updated" }}:</b> {{ dateFormat "January 2, 2006" .Lastmod }}
         </span>
     </div>
 
-
-    <div class="tags mt-2">
-        {{ range .Params.tags }}
-            <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}" class="badge badge-dark p-2">{{ . }}</a>
-        {{ end }}
+    {{ if .Summary }}
+    <div class="card-body">
+        <div class="card-text">
+            <blockquote class="blockquote bg-inactive no-gutters">
+            {{ .Summary }}
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{{ .Scratch.Get "link" }}" class="btn btn-accent">Read More...</a>
+            </div>
+            </blockquote>
+        </div>
     </div>
+    {{ end }}
+
+    <div class="card-footer">
+        <div class="d-flex flex-wrap">
+            {{ range .Params.categories }}
+                <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}" class="badge badge-accent p-2 mr-1">{{ . }}</a>
+            {{ end }}
+            {{ range .Params.tags }}
+                <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}" class="badge badge-dark p-2 mr-1">{{ . }}</a>
+            {{ end }}
+
+        </div>
+    </div>
+
 </div>
