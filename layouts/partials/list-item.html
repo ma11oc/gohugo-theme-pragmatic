@@ -14,18 +14,27 @@
         </span>
     </div>
 
-    {{ if .Summary }}
     <div class="card-body">
         <div class="card-text">
-            <blockquote class="blockquote bg-inactive no-gutters">
-            {{ .Summary }}
+            {{ with .Description }}
+            <blockquote class="blockquote">
+                {{ . }}
+            </blockquote>
+            {{ end }}
+
+            {{ with .Summary }}
+            <blockquote class="blockquote">
+            {{ . }}
+            </blockquote>
+            {{ end }}
+
+            {{ if or .Summary .Description }}
             <div class="d-flex justify-content-end mt-4">
                 <a href="{{ .Scratch.Get "link" }}" class="btn btn-accent">Read More...</a>
             </div>
-            </blockquote>
+            {{ end }}
         </div>
     </div>
-    {{ end }}
 
     <div class="card-footer">
         <div class="d-flex flex-wrap">

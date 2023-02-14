@@ -183,6 +183,10 @@
 
           h5 {
             margin-bottom: 0;
+
+            &:hover {
+              color: var(--accent);
+            }
           }
         }
 
@@ -205,10 +209,21 @@
             width: 100%;
           }
         }
-
         .event-description {
           display: block;
           padding: 1rem;
+
+          code {
+            padding: 0.2rem;
+            padding-left: 0.4rem;
+            padding-right: 0.4rem;
+            margin: 0;
+          }
+        }
+        .event-summary {
+          display: block;
+          padding: 1rem;
+          padding-top: 0;
 
           .highlight {
             padding: 0;

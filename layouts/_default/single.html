@@ -44,6 +44,9 @@
             </div>
 
             <div class="content flex-column mt-4">
+                {{ with .Description }}
+                <blockquote class="content-description bg-dark">{{ . }}</blockquote>
+                {{ end }}
                 {{ .Content }}
             </div>
         </div>
