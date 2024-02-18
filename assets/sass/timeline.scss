@@ -18,6 +18,7 @@
 
 }
 
+
 // Generate `.event-content-*` color utilities
 @each $color, $value in $theme-colors {
   .event-content-#{$color} {
@@ -54,7 +55,7 @@
     display: flex;
     width: 0.2rem;
     height: 100%;
-    background: rgba(theme-color("accent"), 0.35);
+    background: rgba(var(--accent-rgb), 0.35);
     margin: 0 auto;
     position: absolute;
     top: 0;
@@ -155,9 +156,9 @@
           width: 1rem;
           height: 1rem;
           top: 3rem;
-          border-top: 0.1rem solid rgba(theme-color("accent"), 0.25);
-          border-right: 0.1rem solid rgba(theme-color("accent"), 0.25);
-          background: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(theme-color("accent"), 1) 50% 55%, rgba(theme-color("accent"), 0.15) 55% 100%);
+          border-top: 0.1rem solid rgba(var(--accent-rgb), 0.25);
+          border-right: 0.1rem solid rgba(var(--accent-rgb), 0.25);
+          background: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(var(--accent-rgb), 1) 50% 55%, rgba(var(--accent-rgb), 0.15) 55% 100%);
         }
 
         &:before {
@@ -183,6 +184,7 @@
 
           h5 {
             margin-bottom: 0;
+            color: var(--accent);
 
             &:hover {
               color: var(--accent);
@@ -260,7 +262,7 @@
         width: 100%;
 
         span {
-          border-bottom: 0.2rem solid rgba(theme-color("accent"), 0.5) !important;
+          border-bottom: 0.2rem solid rgba(var(--accent-rgb), 0.5) !important;
           height: 3rem;
           padding: 0 2rem;
           z-index: -1;
@@ -386,8 +388,8 @@
         // top: 0;
         // left: 0;
         transition: all 0.33s ease-out 1s;
-        background: rgba(theme-color("accent"), 0.15);
-        border: 0.2rem solid rgba(theme-color("accent"), 0.15);
+        background: rgba(var(--accent-rgb), 0.15);
+        border: 0.2rem solid rgba(var(--accent-rgb), 0.15);
       }
 
       i:hover {
@@ -399,8 +401,8 @@
         // top: 0;
         // left: 0;
         transition: all 0.33s ease-out 1s !important;
-        // background: rgba(theme-color("accent"), 0.15);
-        // border: 0.2rem solid rgba(theme-color("accent"), 0.15);
+        // background: rgba(var(--accent-rgb), 0.15);
+        // border: 0.2rem solid rgba(var(--accent-rgb), 0.15);
       }
 
     }
@@ -603,11 +605,11 @@
   // border: 1px solid rgba(theme-color("danger"), 0.25);
 
   button {
-    background-color: rgba(theme-color("accent"), 0.05);
+    background-color: rgba(var(--accent-rgb), 0.05);
     border-radius: 0 0 0.5rem 0.5rem;
     border-top: none !important;
-    border: 1px solid rgba(theme-color("accent"), 0.25);
-    color: theme-color("accent");
+    border: 1px solid rgba(var(--accent-rgb), 0.25);
+    color: var(--accent);
     height: 100%;
     padding-top: 5px;
     text-align: center;
@@ -632,8 +634,8 @@
 
     button {
       border-radius: 0.5rem 0 0 0.5rem;
-      border: 1px solid rgba(theme-color("accent"), 0.15) !important;
-      background-color: rgba(theme-color("accent"), 0.05);
+      border: 1px solid rgba(var(--accent-rgb), 0.15) !important;
+      background-color: rgba(var(--accent-rgb), 0.05);
       color: theme-color-level("accent", -7);
       vertical-align: center;
     }

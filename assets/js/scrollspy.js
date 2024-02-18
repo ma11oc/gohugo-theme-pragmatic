@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var element = '.inner-shadow'
+  var element = 'body'
 
   $('#TableOfContents a').addClass("nav-link")
 
@@ -9,6 +9,5 @@ $(document).ready(function() {
 
   $('[data-spy="scroll"]').each(function () {
     var spy = $(this).scrollspy('refresh')
-    console.log("$spy: " + spy)
   })
 })

@@ -1,0 +1,10 @@
+{{ define "toc" }}
+{{ if isset .Params "toc" }}
+    <input type="checkbox" id="toc-toggle-checkbox">
+    <label class="toc-toggle" for="toc-toggle-checkbox"><i class="fa fa-stream"></i>ToC</label>
+    <div class="toc-container d-print-none">
+        <h3 class="p-3">{{ i18n "table_of_contents" }}</h3>
+        {{ $.Page.TableOfContents }}
+    </div>
+{{ end }}
+{{ end }}

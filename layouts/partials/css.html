@@ -7,6 +7,7 @@
 {{- $vars :=  resources.Get "sass/variables.scss" | resources.ExecuteAsTemplate "vars.scss" . }}
 {{- $scratch.Add "bundle" (slice $vars) }}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/main.scss")) -}}
+{{- $scratch.Add "bundle" (slice (resources.Get "sass/print.scss")) -}}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/scrollspy.scss")) -}}
 {{- $scratch.Add "bundle" (slice (resources.Get "sass/timeline.scss")) -}}
 
@@ -14,6 +15,16 @@
 {{- if .Site.Params.assets.abcjs.enabled | default false }}
     {{- $scratch.Add "bundle" (slice (resources.Get "sass/abcjs-midi.scss")) -}}
 {{- end }}
+<!-- /abcjs -->
+
+<!-- custom -->
+{{- with .Site.Params.assets.bootstrap.sass -}}
+    {{- range $asset := . -}}
+        {{- $scratch.Add "bundle" (slice (resources.Get $asset)) -}}
+    {{- end -}}
+{{- end -}}
+<!-- /custom -->
+
 
 {{- $bundle := $scratch.Get "bundle" | resources.Concat "css/bundle.scss" }}
 {{- $styles := $bundle | toCSS | postCSS | minify | fingerprint }}

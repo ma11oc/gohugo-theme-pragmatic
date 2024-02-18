@@ -50,12 +50,6 @@
                 {{ .Content }}
             </div>
         </div>
-
-        {{ if isset .Params "toc" }}
-            <div class="toc flex-column d-none d-lg-block d-print-none">
-                {{ $.Page.TableOfContents }}
-            </div>
-        {{ end }}
     </div>
 
     <!-- related content -->
