@@ -1,0 +1,47 @@
+@media print {
+  body {
+    height: 100% !important;
+    width: 100% !important;
+    background-color: white;
+    color: black;
+  }
+
+  a, strong {
+    color: black;
+  }
+
+  header, footer, .footer, .inner-shadow, .toc-container {
+    display: none !important;
+  }
+
+  .container {
+    height: 100% !important;
+    background-color: white;
+  }
+
+  .card {
+    background-color: white !important;
+    border: none;
+    page-break-inside: avoid;
+
+    sup {
+      display: none;
+    }
+  }
+
+  .badge {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 0;
+  }
+
+
+  .cv-position-container {
+    border-left: 2px solid $gray-300 !important;
+  }
+
+  .cv-position-bullet {
+    background-color: $gray-300 !important;
+  }
+}

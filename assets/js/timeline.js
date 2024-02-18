@@ -6,7 +6,8 @@ function render_event(e) {
   let permalink = e.permalink || '#';
   let title = e.title;
   let image = "";
-  let desc = e.timeline.desc ? atob(e.timeline.desc) : '';
+  let desc = e.timeline.desc || e.description || '';
+  let summary = e.summary || '';
 
   if (e.timeline.image) {
     image += `<a href="${permalink}"><img src="${e.timeline.image}" alt=""></img></a>`
@@ -46,12 +47,13 @@ function render_event(e) {
             <div class="event-content ${e.timeline.class || 'event-content-accent'}">
                 <div class="event-title">
                     <a href="${permalink}">
-                        <h5 class="title">${e.title || 'Ops... There is no title for some reason. :('}</h5>
+                        <h5 class="title">${title || 'Ops... There is no title for some reason. :('}</h5>
                     </a>
                 </div>
                 ${image ? '<div class="event-image">' + image + '</div>' : ''}
                 ${ !image && desc ? '<div class="event-separator"><hr/></div>' : '' }
-                ${desc ? '<div class="event-description">' + desc + '</div>' : '' }
+                ${desc ? '<div class="event-description">' + atob(desc) + '</div>' : '' }
+                ${summary ? '<div class="event-summary">' + atob(summary) + '</div>' : '' }
             </div>
         </div>
     </div>

@@ -1,7 +1,1 @@
 User-agent: *
-
-{{ range .Pages }}
-  {{- if not .Params.crowlable -}}
-    Disallow: {{.RelPermalink}}
-  {{- end }}
-{{ end }}

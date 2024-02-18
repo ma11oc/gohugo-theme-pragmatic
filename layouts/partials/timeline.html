@@ -4,7 +4,8 @@
     {{ $image := (.Param "timeline.image" | default nil) }}
     {{ $icon  := (.Param "timeline.icon" | default nil) }}
     {{ $class := (.Param "timeline.class" | default nil) }}
-    {{ $desc  := (.Param "timeline.desc" | default nil) }}
+    {{ $desc  := (.Param "timeline.desc" | default .Params.Description) }}
+    {{ $summary  := .Params.Summary }}
 
     <div class="event">
 
@@ -63,6 +64,11 @@
                 {{ end }}
                 {{ with $desc }}
                 <div class="event-description">
+                    {{ . | markdownify | safeHTML }}
+                </div>
+                {{ end }}
+                {{ with $summary }}
+                <div class="event-summary">
                     {{ . | markdownify | safeHTML }}
                 </div>
                 {{ end }}

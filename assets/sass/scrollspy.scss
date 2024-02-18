@@ -1,13 +1,106 @@
-#TableOfContents {
-  right: 2rem;
-  top: 2rem;
-  width: 20rem;
-  margin-right: -20rem;
-  margin-top: 5rem;
+$toc-width: 40%;
+
+.toc-toggle {
+  height: 2.4rem;
+  width: auto;
+  right: 0;
+  top: 5rem;
+  position: fixed;
+  cursor: pointer;
+  border-radius: 5%;
+  background-color: rgba(var(--accent-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  padding: 0.4rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  color: var(--accent-hex);
+  z-index: 1000;
+  transition: ease 0.5s;
+  vertical-align: middle;
+  text-align: center;
+
+  i {
+    margin-right: 0.4rem;
+  }
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+
+  // &:before {
+  //   font-family: $font-family-fontawesome;
+  //   content: "\f550";
+  // }
+}
+
+#toc-toggle-checkbox {
+  display: none;
+}
+
+
+#toc-toggle-checkbox:checked ~ .toc-container {
+  display: block;
+  visibility: visible;
+  opacity: 100;
+  transition: visibility 0.5s ease-out, opacity 0.5s ease-out, width 0.5s ease-out;
+
+  width: $toc-width;
+  // min-width: $toc-width;
+
+  @include media-breakpoint-down(sm) {
+    width: 80%;
+  }
+}
+
+
+#toc-toggle-checkbox:checked ~ .toc-toggle {
+  // right: 16.55%;
+  right: $toc-width*0.715;
+  transition: ease 0.5s;
+}
+
+.toc-container {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+
+  right: 0rem;
+  top: 0rem;
   position: sticky;
+  overflow-x: clip;
+  max-width: $toc-width;
+  height: 100vh;
+  background-color: rgba(var(--accent-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  border-top: 3px solid rgba(var(--accent-rgb), 0.5);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.5);
+  // border-top-left-radius: 2%;
+  // border-bottom-left-radius: 2%;
+  padding: 0;
+  margin-left: 0;
+  transition: visibility 0.1s, opacity 0.2s, width 0.5s ease-out, height 1s ease-out;
+  word-wrap: none;
+  box-shadow: inset 0 0 1rem rgba($black, 0.25);
+
+  h3 {
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.15);
+  }
 
   ul {
-    padding-left: 1rem;
+    padding-left: 0;
+    // list-style-position: inside;
+    // padding-inline-start: 1rem;
+  }
+
+  ul ul {
+    text-indent: 1rem;
+  }
+
+  ul ul ul {
+    text-indent: 2rem;
   }
 
   li {
@@ -25,7 +118,7 @@
     &.active {
       color: $gray-300;
       background-color: rgba(theme-color-level("accent", -7), 0.07);
-      border-right: 3px solid theme-color("accent");
+      border-left: 3px solid var(--accent);
     }
   }
 }

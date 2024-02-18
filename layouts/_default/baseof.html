@@ -1,46 +1,25 @@
 <!doctype html>
 <html lang="{{ .Site.LanguageCode }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-
-        <title>{{- block "title" . }}{{ .Site.Title }}{{ end -}}</title>
-
-        {{- if .Site.Params.favicon | default false -}}
-            {{- partial "favicon"}}
-        {{ end }}
-
-        {{ partial "css" . }}
-        {{ partial "js" . }}
-
-        <!--
-           - {{- with .OutputFormats.Get "RSS" }}
-           -     {{- .RelPermalink }}
-           - {{- end }}
-           -->
-
-    </head>
+    {{ block "head" . }}
+    {{ end }}
 
     <body>
-        <div class="inner-shadow d-flex flex-column position-fixed w-100 h-100">
-            <header class="header w-100">
+        <div class="inner-shadow position-fixed w-100 h-100"></div>
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column w-100">
                 {{ block "header" . }}
                 {{ end }}
 
-                </nav>
-
-            </header>
-
-            <main aria-role="main" class="main d-flex flex-column flex-grow-1 flex-shrink-0 w-100 mx-auto my-auto">
                 {{ block "main" . }}
                 {{ end }}
-            </main>
 
-            <footer class="footer d-none d-sm-block w-100 mx-auto">
                 {{ block "footer" . }}
                 {{ end }}
-            </footer>
-        </div>
+            </div>
 
+            {{ block "toc" . }}
+            {{ end }}
+
+        </div>
     </body>
 </html>

@@ -8,9 +8,11 @@
 
 $theme-colors: (
   {{ range $key, $value := $scratch.Get "colors" }}
-    {{ $key }}: {{ $value }},
+    {{ $key }}: {{ if eq $value "random" }}{{ "white" }}{{ else }}{{ $value }}{{ end }},
   {{ end }}
 );
+
+@debug $theme-colors;
 
 $theme-background: (
   {{ range $key, $value := $scratch.Get "background" }}
@@ -34,8 +36,6 @@ $gray-900: #222 !default;
 $body-bg: map-get($theme-colors, "body-bg");
 $body-color: $gray-300;
 
-$link-color: map-get($theme-colors, "accent");
-
 {{ $sans_serif := .Site.Params.font.sans_serif | default "Raleway" }}
 {{ $monospace := .Site.Params.font.monospace | default "Roboto Mono" }}
 {{ $condensed := .Site.Params.font.condensed | default "Roboto Condensed" }}
@@ -51,3 +51,9 @@ $font-family-fontawesome: {{ .Site.Params.font.fontawesome | default "FontAwesom
 @import "themes/pragmatic/node_modules/bootstrap/scss/bootstrap";
 
 $max-width: 1140px;
+
+:root {
+  --accent: #{map-get($theme-colors, "accent")};
+  --accent-hex: #{map-get($theme-colors, "accent")};
+  --accent-rgb: #{red(map-get($theme-colors, "accent"))}, #{green(map-get($theme-colors, "accent"))}, #{blue(map-get($theme-colors, "accent"))};
+}

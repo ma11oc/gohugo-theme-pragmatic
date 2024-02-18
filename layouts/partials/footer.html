@@ -1,22 +1,24 @@
 {{ define "footer" }}
-<div class="container mt-4 text-center">
-    {{ $msg := printf "&copy; %v %v" (now.Format "2006") "| Powered by [Hugo](https://gohugo.io) and [Pragmatic](https://github.com/ma11oc/gohugo-theme-pragmatic)" }}
-    <span class="text-accent">{{ .Site.Params.copyright | default $msg | markdownify }}</span>
+<footer class="footer d-none d-sm-block w-100 mx-auto">
+    <div class="container mt-4 text-center">
+        {{ $msg := printf "&copy; %v %v" (now.Format "2006") "| Powered by [Hugo](https://gohugo.io) and [Pragmatic](https://github.com/ma11oc/gohugo-theme-pragmatic)" }}
+        <span class="text-accent">{{ .Site.Params.copyright | default $msg | markdownify }}</span>
 
-    <nav class="navbar navbar-expand-md mx-auto">
-        <div class="collapse navbar-collapse justify-content-center" id="nav-icons">
-            {{ if .Site.Menus.icons }}
-            <ul class="nav navbar-nav navbar-right">
-                {{ range sort .Site.Menus.icons }}
-                <li class="navbar-icon mx-2">
-                    <a href="{{ .URL }}">
-                        <i class="{{ .Name }}"></i>
-                    </a>
-                </li>
+        <nav class="navbar navbar-expand-md mx-auto">
+            <div class="collapse navbar-collapse justify-content-center" id="nav-icons">
+                {{ if .Site.Menus.icons }}
+                <ul class="nav navbar-nav navbar-right">
+                    {{ range sort .Site.Menus.icons }}
+                    <li class="navbar-icon mx-2">
+                        <a href="{{ .URL }}">
+                            <i class="{{ .Name }}"></i>
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
                 {{ end }}
-            </ul>
-            {{ end }}
-        </div>
-    </nav>
-</div>
+            </div>
+        </nav>
+    </div>
+</footer>
 {{ end }}

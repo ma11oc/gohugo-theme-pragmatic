@@ -1,8 +1,10 @@
 {{- define "main" }}
-    <div class="container text-center mb-4">
-        <h2>{{ .Title }}</h2>
+    <div class="container text-left mb-4">
+        <h1 class="text-center">{{ .Title }}</h1>
 
-        {{ range (.Paginator 5).Pages }} {{ partial "list-item" . }} {{ end }}
+        {{ range (.Paginator 5).Pages }}
+            {{ partial "list-item" . }}
+        {{ end }}
 
         {{ partial "paginator" . }}
     </div>
